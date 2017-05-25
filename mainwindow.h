@@ -3,6 +3,7 @@
 
 #include "trem.h"
 #include <QMainWindow>
+#include <vector>
 
 using namespace std;
 
@@ -23,7 +24,7 @@ public slots:
 
 private:
     Ui::MainWindow *ui;
-    Trem *trem1;
+    vector<Trem*> trains;
 };
 
 #endif // MAINWINDOW_H
