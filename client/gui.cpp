@@ -39,16 +39,7 @@ ITEM * cur;
 
 bool connected = false;
 
-int main(void) {
-	// Init ncurses
-	initscr();
-	start_color();
-	cbreak();
-	noecho();
-	keypad(stdscr, TRUE);
-	init_pair(1, COLOR_RED, COLOR_BLACK);
-	init_pair(2, COLOR_GREEN, COLOR_BLACK);
-	init_pair(3, COLOR_MAGENTA, COLOR_BLACK);
+void create_gen_menu() {
 
 	// Create items
 	n_choices = ARRAY_SIZE(choices);
@@ -96,7 +87,24 @@ int main(void) {
 			}
 			if (c == KEY_F(1)) break;
 			refresh();
-	}       
+	}  
+
+}
+
+
+
+int main(void) {
+	// Init ncurses
+	initscr();
+	start_color();
+	cbreak();
+	noecho();
+	keypad(stdscr, TRUE);
+	init_pair(1, COLOR_RED, COLOR_BLACK);
+	init_pair(2, COLOR_GREEN, COLOR_BLACK);
+	init_pair(3, COLOR_MAGENTA, COLOR_BLACK);
+     
+	create_gen_menu();
 
 	endwin();
 
@@ -170,6 +178,7 @@ void create_train_menu(char purpose) {
 							break;
 					}
 			}
+			refresh();
 			if (c == -1) break;
 	}
 
@@ -246,6 +255,37 @@ void exit_turn_train(char * name, bool on) {
 /* Speed train menu reactions */
 void change_speed(char * name) {
 
+	unpost_menu(trains_menu);
 
+	WINDOW *speed_win;
+	
+	speed_win = newwin(5,20, (LINES - 5)/2, (COLS-20)/2);
+
+	box(speed_win, 0, 0);
+	keypad(speed_win, TRUE);
+
+	mvwprintw(speed_win, 0, 0, "%s", name);
+
+	refresh();
+	wrefresh(speed_win);
+
+	while(true) {
+		c = wgetch(speed_win);
+		switch(c) {
+			case 27: {
+				wborder(speed_win, ' ', ' ', ' ',' ',' ',' ',' ',' ');
+				wrefresh(speed_win);
+				delwin(speed_win);
+				post_menu(trains_menu);
+				break;
+			}
+		}
+		if (c == 27) break;
+	}
 }
+
+
+
+
+
 
