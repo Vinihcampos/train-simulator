@@ -11,7 +11,7 @@ class Trem : public QObject
 {
     Q_OBJECT
 public:
-    Trem(int,int,int,vector<Semaforo*> & semaphores);
+    Trem(int,int,int);
     ~Trem();
     void start();
     void run();
@@ -28,7 +28,6 @@ private:
    int y;
    int velocidade;
    bool enable;
-   vector<Semaforo*> semaphores;
 };
 
 #endif // TREM_H

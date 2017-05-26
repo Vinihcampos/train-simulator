@@ -1,29 +1,30 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "system_train.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow){
     ui->setupUi(this);
 
-    semaphores.push_back(new Semaforo(1234,1,IPC_CREAT|0600));
-    semaphores.push_back(new Semaforo(1235,1,IPC_CREAT|0600));
-    semaphores.push_back(new Semaforo(1236,1,IPC_CREAT|0600));
-    semaphores.push_back(new Semaforo(1237,1,IPC_CREAT|0600));
-    semaphores.push_back(new Semaforo(1238,1,IPC_CREAT|0600));
-    semaphores.push_back(new Semaforo(1239,1,IPC_CREAT|0600));
-    semaphores.push_back(new Semaforo(1240,1,IPC_CREAT|0600));
-    semaphores.push_back(new Semaforo(1241,1,IPC_CREAT|0600));
-    semaphores.push_back(new Semaforo(1242,1,IPC_CREAT|0600));
-    semaphores.push_back(new Semaforo(1243,1,IPC_CREAT|0600));
+    System::semaphores.push_back(new Semaforo(1234,1,IPC_CREAT|0600));
+    System::semaphores.push_back(new Semaforo(1235,1,IPC_CREAT|0600));
+    System::semaphores.push_back(new Semaforo(1236,1,IPC_CREAT|0600));
+    System::semaphores.push_back(new Semaforo(1237,1,IPC_CREAT|0600));
+    System::semaphores.push_back(new Semaforo(1238,1,IPC_CREAT|0600));
+    System::semaphores.push_back(new Semaforo(1239,1,IPC_CREAT|0600));
+    System::semaphores.push_back(new Semaforo(1240,1,IPC_CREAT|0600));
+    System::semaphores.push_back(new Semaforo(1241,1,IPC_CREAT|0600));
+    System::semaphores.push_back(new Semaforo(1242,1,IPC_CREAT|0600));
+    System::semaphores.push_back(new Semaforo(1243,1,IPC_CREAT|0600));
 
-    trains.push_back(new Trem(1,20,180,semaphores));
-    trains.push_back(new Trem(2,220,30,semaphores));
-    trains.push_back(new Trem(3,420,30,semaphores));
-    trains.push_back(new Trem(4,620,180,semaphores));
-    trains.push_back(new Trem(5,420,330,semaphores));
-    trains.push_back(new Trem(6,220,330,semaphores));
-    trains.push_back(new Trem(7,220,180,semaphores));
+    trains.push_back(new Trem(1,20,180));
+    trains.push_back(new Trem(2,220,30));
+    trains.push_back(new Trem(3,420,30));
+    trains.push_back(new Trem(4,620,180));
+    trains.push_back(new Trem(5,420,330));
+    trains.push_back(new Trem(6,220,330));
+    trains.push_back(new Trem(7,220,180));
 
     trains[5]->setVelocidade(20);
     trains[4]->setVelocidade(30);
@@ -52,9 +53,7 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-    for(int i = 0; i < semaphores.size(); ++i){
-        delete semaphores[i];
-    }
+    System::clear();
 }
 
 void MainWindow::updateInterface(int id, int x, int y)
