@@ -86,28 +86,73 @@ void Trem::run(){
             case 3:
                 if (enable){
                     emit updateGUI(id,x,y);
-                    if (x == 320 && y > 30) y-=10;
-                    else if (y == 30 && x < 520) x+=10;
-                    else if (x == 520 && y < 130) y+=10;
-                    else x-=10;
+                    if (x == 320 && y > 30){ 
+                        y-=10;
+                    }else if (y == 30 && x < 520){ 
+                        if(x == 500){
+                            if(semaphores[2]->getContador()){
+                                semaphores[2]->P();
+                                x+=10;
+                            }
+                        }
+                        else x+=10;
+                    }else if (x == 520 && y < 130){
+                        y+=10; 
+                    }else{
+                        if(x == 500) if(!semaphores[2]->getContador()) semaphores[2]->V();
+                        x-=10;
+                    }
                 }
                 break;
             case 4:
                 if (enable){
                     emit updateGUI(id,x,y);
-                    if (x == 520 && y > 30) y-=10;
-                    else if (y == 30 && x < 620) x+=10;
-                    else if (x == 620 && y < 330) y+=10;
-                    else x-=10;
+                    if (x == 520 && y > 30){
+                        if(y == 150){
+                            if(semaphores[2]->getContador()){
+                                semaphores[2]->P();
+                                y-=10;
+                            }
+                        }else if(y == 210){
+                            if(!semaphores[9]->getContador()) semaphores[9]->V();
+                            y-=10;
+                        }
+                        else y-=10;
+                    }else if (y == 30 && x < 620){ 
+                        if(x == 540) if(!semaphores[2]->getContador()) semaphores[2]->V();
+                        x+=10;
+                    }else if (x == 620 && y < 330){ 
+                        y+=10;
+                    }else{
+                        if(x == 540){
+                            if(semaphores[9]->getContador()){
+                                semaphores[9]->P();
+                                x-=10;
+                            }
+                        }
+                        else x-=10;
+                    }
                 }
                 break;
             case 5:
                 if (enable){
                     emit updateGUI(id,x,y);
-                    if (x == 320 && y > 230) y-=10;
-                    else if (y == 230 && x < 520) x+=10;
-                    else if (x == 520 && y < 330) y+=10;
-                    else x-=10;
+                    if (x == 320 && y > 230){
+                        y-=10;
+                    }else if (y == 230 && x < 520){
+                        if(x == 500){
+                            if(semaphores[9]->getContador()){
+                                semaphores[9]->P();
+                                x+=10;
+                            }
+                        }
+                        else x+=10;
+                    }else if (x == 520 && y < 330){
+                        y+=10;
+                    }else{
+                        if(x == 500) if(!semaphores[9]->getContador()) semaphores[9]->V();
+                        x-=10;
+                    }
                 }
                 break;
             case 6:
@@ -134,10 +179,15 @@ void Trem::run(){
             case 7:
                 if (enable){
                     emit updateGUI(id,x,y);
-                    if (x == 220 && y > 130) y-=10;
-                    else if (y == 130 && x < 420) x+=10;
-                    else if (x == 420 && y < 230) y+=10;
-                    else x-=10;
+                    if (x == 220 && y > 130){
+                        y-=10;
+                    }else if (y == 130 && x < 420){
+                        x+=10;
+                    }else if (x == 420 && y < 230){
+                        y+=10;
+                    }else{
+                        x-=10;
+                    }
                 }
                 break;
             default:
