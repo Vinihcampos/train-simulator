@@ -6,7 +6,7 @@ Trem::Trem(int id, int x, int y, vector<Semaforo*> & semaphores)
     this->id = id;
     this->x = x;
     this->y = y;
-    velocidade = 30;
+    velocidade = 10;
     enable = true;
     this->semaphores = semaphores;
 }
@@ -73,27 +73,29 @@ void Trem::run(){
                             if(!semaphores[0]->getContador()) semaphores[0]->V();
                             x+=10;
                         }else if(x == 300){
-                            if(semaphores[3]->getContador()){
-                                semaphores[3]->P();
-                                if(semaphores[4]->getContador()){
-                                    semaphores[4]->P();
-                                    if(semaphores[1]->getContador()){
-                                        semaphores[1]->P();
+                            if(semaphores[4]->getContador()){
+                                semaphores[4]->P();
+                                if(semaphores[1]->getContador()){
+                                    semaphores[1]->P();
+                                    if(semaphores[3]->getContador()){
+                                        semaphores[3]->P();
                                         x+=10;
                                     }
-                                }else if(!semaphores[4]->getContador() && semaphores[1]->getContador()){
-                                    semaphores[1]->P();
+                                }
+                                else if(!semaphores[1]->getContador() && semaphores[3]->getContador()){
+                                    semaphores[3]->P();
                                     x+=10;
                                 }
-                            }else if(!semaphores[3]->getContador()){
-                                if(semaphores[4]->getContador()){
-                                    semaphores[4]->P();
-                                    if(semaphores[1]->getContador()){
-                                        semaphores[1]->P();
+                            }else if(!semaphores[4]->getContador()){
+                                if(semaphores[1]->getContador()){
+                                    semaphores[1]->P();
+                                    if(semaphores[3]->getContador()){
+                                        semaphores[3]->P();
                                         x+=10;
                                     }
-                                }else if(!semaphores[4]->getContador() && semaphores[1]->getContador()){
-                                    semaphores[1]->P();
+                                }
+                                else if(!semaphores[1]->getContador() && semaphores[3]->getContador()){
+                                    semaphores[3]->P();
                                     x+=10;
                                 }
                             }
@@ -107,9 +109,9 @@ void Trem::run(){
                                 x-=10;
                             }
                         }else if(x == 200){
-                            if(!semaphores[4]->getContador()) semaphores[4]->V();
-                            if(!semaphores[1]->getContador()) semaphores[1]->V();
                             if(!semaphores[3]->getContador()) semaphores[3]->V();
+                            if(!semaphores[1]->getContador()) semaphores[1]->V();
+                            if(!semaphores[4]->getContador()) semaphores[4]->V();
                             x-=10;
                         }else x-=10;
                     }
@@ -123,8 +125,8 @@ void Trem::run(){
                     }else if (y == 30 && x < 520){ 
                         if(x == 340){
                             if(!semaphores[3]->getContador()) semaphores[3]->V();
-                            if(!semaphores[4]->getContador()) semaphores[4]->V();
                             if(!semaphores[1]->getContador()) semaphores[1]->V();
+                            if(!semaphores[4]->getContador()) semaphores[4]->V();
                             x+=10;
                         }else if(x == 500){
                             if(semaphores[2]->getContador()){
@@ -137,28 +139,30 @@ void Trem::run(){
                         y+=10; 
                     }else{
                         if(x == 440){
-                            if(semaphores[1]->getContador()){
-                                semaphores[1]->P();
-                                if(semaphores[3]->getContador()){
-                                    semaphores[3]->P();
-                                    if(semaphores[4]->getContador()){
-                                        semaphores[4]->P();
-                                        x-=10;   
+                            if(semaphores[4]->getContador()){
+                                semaphores[4]->P();
+                                if(semaphores[1]->getContador()){
+                                    semaphores[1]->P();
+                                    if(semaphores[3]->getContador()){
+                                        semaphores[3]->P();
+                                        x-=10;
                                     }
-                                }else if(!semaphores[3]->getContador() && semaphores[4]->getContador()){
-                                    semaphores[4]->P();
-                                    x-=10;   
                                 }
-                            }else if(!semaphores[1]->getContador()){
-                                if(semaphores[3]->getContador()){
+                                else if(!semaphores[1]->getContador() && semaphores[3]->getContador()){
                                     semaphores[3]->P();
-                                    if(semaphores[4]->getContador()){
-                                        semaphores[4]->P();
-                                        x-=10;   
+                                    x-=10;
+                                }
+                            }else if(!semaphores[4]->getContador()){
+                                if(semaphores[1]->getContador()){
+                                    semaphores[1]->P();
+                                    if(semaphores[3]->getContador()){
+                                        semaphores[3]->P();
+                                        x-=10;
                                     }
-                                }else if(!semaphores[3]->getContador() && semaphores[4]->getContador()){
-                                    semaphores[4]->P();
-                                    x-=10;   
+                                }
+                                else if(!semaphores[1]->getContador() && semaphores[3]->getContador()){
+                                    semaphores[3]->P();
+                                    x-=10;
                                 }
                             }
                         }else if(x == 500) {
@@ -207,9 +211,9 @@ void Trem::run(){
                         y-=10;
                     }else if (y == 230 && x < 520){
                         if(x == 440){
-                            if(!semaphores[5]->getContador()) semaphores[5]->V();
-                            if(!semaphores[8]->getContador()) semaphores[8]->V();
                             if(!semaphores[6]->getContador()) semaphores[6]->V();
+                            if(!semaphores[8]->getContador()) semaphores[8]->V();
+                            if(!semaphores[5]->getContador()) semaphores[5]->V();
                             x+=10;
                         }else if(x == 500){
                             if(semaphores[9]->getContador()){
@@ -222,27 +226,29 @@ void Trem::run(){
                         y+=10;
                     }else{
                         if(x == 340){
-                            if(semaphores[6]->getContador()){
-                                semaphores[6]->P();
-                                if(semaphores[5]->getContador()){
-                                    semaphores[5]->P();
-                                    if(semaphores[8]->getContador()){
-                                        semaphores[8]->P();
+                            if(semaphores[5]->getContador()){
+                                semaphores[5]->P();
+                                if(semaphores[8]->getContador()){
+                                    semaphores[8]->P();
+                                    if(semaphores[6]->getContador()){
+                                        semaphores[6]->P();
                                         x-=10;
                                     }
-                                }else if(!semaphores[5]->getContador() && semaphores[8]->getContador()){
-                                    semaphores[8]->P();
+                                }
+                                else if(!semaphores[8]->getContador() && semaphores[6]->getContador()){
+                                    semaphores[6]->P();
                                     x-=10;
                                 }
-                            }else if(!semaphores[6]->getContador()){
-                                if(semaphores[5]->getContador()){
-                                    semaphores[5]->P();
-                                    if(semaphores[8]->getContador()){
-                                        semaphores[8]->P();
+                            }else if(!semaphores[5]->getContador()){
+                                if(semaphores[8]->getContador()){
+                                    semaphores[8]->P();
+                                    if(semaphores[6]->getContador()){
+                                        semaphores[6]->P();
                                         x-=10;
                                     }
-                                }else if(!semaphores[5]->getContador() && semaphores[8]->getContador()){
-                                    semaphores[8]->P();
+                                }
+                                else if(!semaphores[8]->getContador() && semaphores[6]->getContador()){
+                                    semaphores[6]->P();
                                     x-=10;
                                 }
                             }
@@ -263,28 +269,30 @@ void Trem::run(){
                             if(!semaphores[7]->getContador()) semaphores[7]->V();
                             x+=10;
                         }else if(x == 200){
-                            if(semaphores[8]->getContador()){
-                                semaphores[8]->P();
-                                if(semaphores[6]->getContador()){
-                                    semaphores[6]->P();
-                                    if(semaphores[5]->getContador()){
-                                        semaphores[5]->P();
-                                        x+=10;   
+                            if(semaphores[5]->getContador()){
+                                semaphores[5]->P();
+                                if(semaphores[8]->getContador()){
+                                    semaphores[8]->P();
+                                    if(semaphores[6]->getContador()){
+                                        semaphores[6]->P();
+                                        x+=10;
                                     }
-                                }else if(!semaphores[6]->getContador() && semaphores[5]->getContador()){
-                                    semaphores[5]->P();
-                                    x+=10;   
                                 }
-                            }else if(!semaphores[8]->getContador()){
-                                if(semaphores[6]->getContador()){
+                                else if(!semaphores[8]->getContador() && semaphores[6]->getContador()){
                                     semaphores[6]->P();
-                                    if(semaphores[5]->getContador()){
-                                        semaphores[5]->P();
-                                        x+=10;   
+                                    x+=10;
+                                }
+                            }else if(!semaphores[5]->getContador()){
+                                if(semaphores[8]->getContador()){
+                                    semaphores[8]->P();
+                                    if(semaphores[6]->getContador()){
+                                        semaphores[6]->P();
+                                        x+=10;
                                     }
-                                }else if(!semaphores[6]->getContador() && semaphores[5]->getContador()){
-                                    semaphores[5]->P();
-                                    x+=10;   
+                                }
+                                else if(!semaphores[8]->getContador() && semaphores[6]->getContador()){
+                                    semaphores[6]->P();
+                                    x+=10;
                                 }
                             }
                         }else x+=10;
@@ -293,8 +301,8 @@ void Trem::run(){
                     }else{
                         if(x == 300){
                             if(!semaphores[6]->getContador()) semaphores[6]->V();
-                            if(!semaphores[5]->getContador()) semaphores[5]->V();
                             if(!semaphores[8]->getContador()) semaphores[8]->V();
+                            if(!semaphores[5]->getContador()) semaphores[5]->V();
                             x-=10;
                         }else if(x == 140){
                             if(semaphores[7]->getContador()){

@@ -25,11 +25,12 @@ MainWindow::MainWindow(QWidget *parent) :
     trains.push_back(new Trem(6,220,330,semaphores));
     trains.push_back(new Trem(7,220,180,semaphores));
 
-    trains[0]->setVelocidade(100);
-    trains[1]->setVelocidade(50);
-    trains[2]->setVelocidade(400);
-    trains[6]->setVelocidade(70);
-    trains[5]->setVelocidade(100);
+    trains[5]->setVelocidade(20);
+    trains[4]->setVelocidade(30);
+    trains[3]->setVelocidade(40);
+    trains[2]->setVelocidade(50);
+    trains[1]->setVelocidade(60);
+    trains[0]->setVelocidade(70);
     
     connect(trains[0],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
     connect(trains[1],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
