@@ -25,6 +25,7 @@ public slots:
 private:
     Ui::MainWindow *ui;
     vector<Trem*> trains;
+    vector<Semaforo*> semaphores;
 };
 
 #endif // MAINWINDOW_H
