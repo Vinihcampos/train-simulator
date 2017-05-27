@@ -1,7 +1,10 @@
 #include <curses.h>
 #include <panel.h>
 #include <menu.h>
+#include <mutex>
 #include <cstdlib>
+#include <unistd.h>
+#include <thread>
 #include <cstring>
 #include <map>
 #include <iostream>
@@ -41,6 +44,8 @@ WINDOW * windows[4];
 bool connected = false;
 int command = 0;
 std::map<PANEL *, int> panels_id;
+std::string velocity_pot = "200";
+std::mutex mtx;
 
 int n_general_choices = ARRAY_SIZE(general_choices);
 int n_train_choices = ARRAY_SIZE(train_choices);
@@ -141,16 +146,41 @@ void exit_train_panel(char * name) {
 }
 
 //-----------------------------------
-// Train speed panel
+// Train menu speed panel
 // ---------------------------------
 //--- Itens actions ---//
 void speed_train_menu(char * name);
 
 void speed_train_menu(char * name) {
+	box(windows[3], 0, 0);
+	show_panel(panels[3]);
+	mvwprintw(windows[3], 0, 0, name);
+	wrefresh(windows[3]);
+}
+//-----------------------------------
+// Train speed panel
+// ---------------------------------
+//-- Commands --//
+void speed_window_confirm(int);
 
+void speed_window_confirm(int i) {
+	hide_panel(panels[3]);
+	wrefresh(windows[3]);
+	top_panel(panels[2]);
 }
 
-
+/* Potentiometer thread
+ * ---------------------- */
+void potentiometer_update() {
+	mtx.lock();
+	while (panel_below((PANEL *)0) == panels[3]) {
+		velocity_pot = "300"; // getpotentiometervalue();
+		mvwprintw(windows[3], 1, 2, velocity_pot.c_str());
+		wrefresh(windows[3]);
+		usleep(5000);
+	}
+	mtx.unlock();
+}
 
 /* Main method.
  -----------------------------------------------*/
@@ -231,6 +261,16 @@ int main(void) {
 	train_mspeed_funcs[UP_COMMAND] = up_general_menu;
 	train_mspeed_funcs[CHOOSE_COMMAND] = choose_general_menu;
 
+	// Speed window
+	windows[3] = newwin(5, 20, (LINES-5)/2, (COLS-20)/2);
+	box(windows[3], 0, 0);
+	keypad(windows[3], TRUE);
+	panels[3] = new_panel(windows[3]);
+	train_speed_funcs[DOWN_COMMAND] = nullptr;
+	train_speed_funcs[UP_COMMAND] = nullptr;
+	train_speed_funcs[CHOOSE_COMMAND] = speed_window_confirm;
+	set_panel_userptr(panels[3], train_speed_funcs);
+	hide_panel(panels[3]);
 
 	top_panel(panels[0]);
 
@@ -240,26 +280,36 @@ int main(void) {
 	/*------------ Main loop ---------------*/
 	while (true) {
 		PANEL * top = panel_below((PANEL *)0);
+
+		// Throws update potentiometer thread
+		if (command == 10 && top == panels[3]) {
+			std::thread tupdatepot (potentiometer_update);
+			tupdatepot.detach();
+		}
+
 		command = wgetch(panel_window(top));
 		void (**funcs)(int) = reinterpret_cast<void (**)(int)>(const_cast<void *>(panel_userptr(top)));
 		switch(command) {	
 			case KEY_DOWN: {
-					if (funcs[DOWN_COMMAND])
+					if (funcs[DOWN_COMMAND] != nullptr)
 						funcs[DOWN_COMMAND](panels_id[top]);
 				break;
 			}
 			case KEY_UP: {
-					if (funcs[UP_COMMAND])
+					if (funcs[UP_COMMAND] != nullptr)
 						funcs[UP_COMMAND](panels_id[top]);
 				break;
 		    }
 			case 10: {
-					if (funcs[CHOOSE_COMMAND])
+					if (funcs[CHOOSE_COMMAND] != nullptr)
 						funcs[CHOOSE_COMMAND](panels_id[top]);
 				break;		 
 			}
 		}
 		if (command == -1) break;
+
+		top = panel_below((PANEL *)0);
+
 		refresh();
 		wrefresh(panel_window(top));
 		update_panels();
