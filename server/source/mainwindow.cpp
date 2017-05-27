@@ -1,8 +1,11 @@
-#include "mainwindow.h"
+#include "header/mainwindow.h"
 #include "ui_mainwindow.h"
-#include "system_train.h"
+#include <QStandardItemModel>
+#include "header/system_train.h"
 #include <iostream>
 #include <vector>
+
+QStandardItemModel * model;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -28,13 +31,23 @@ MainWindow::MainWindow(QWidget *parent) :
     trains.push_back(new Trem(6,220,330));
     trains.push_back(new Trem(7,220,180));
 
-    //trains[5]->setVelocidade(20);
-    //trains[4]->setVelocidade(30);
-    //trains[3]->setVelocidade(40);
-    //trains[2]->setVelocidade(50);
-    //trains[1]->setVelocidade(60);
-    //trains[0]->setVelocidade(70);
-    
+    trains[5]->setVelocidade(20);
+    trains[4]->setVelocidade(30);
+    trains[3]->setVelocidade(40);
+    trains[2]->setVelocidade(50);
+    trains[1]->setVelocidade(60);
+    trains[0]->setVelocidade(70);
+
+    // Update lap informations
+    connect(trains[0],SIGNAL(updateGUI(int,double,double,double)),SLOT(updateInterface(int,double,double,double)));
+    connect(trains[1],SIGNAL(updateGUI(int,double,double,double)),SLOT(updateInterface(int,double,double,double)));
+    connect(trains[2],SIGNAL(updateGUI(int,double,double,double)),SLOT(updateInterface(int,double,double,double)));
+    connect(trains[3],SIGNAL(updateGUI(int,double,double,double)),SLOT(updateInterface(int,double,double,double)));
+    connect(trains[4],SIGNAL(updateGUI(int,double,double,double)),SLOT(updateInterface(int,double,double,double)));
+    connect(trains[5],SIGNAL(updateGUI(int,double,double,double)),SLOT(updateInterface(int,double,double,double)));
+    connect(trains[6],SIGNAL(updateGUI(int,double,double,double)),SLOT(updateInterface(int,double,double,double)));
+
+    // Update train position
     connect(trains[0],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
     connect(trains[1],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
     connect(trains[2],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
@@ -42,6 +55,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(trains[4],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
     connect(trains[5],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
     connect(trains[6],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
+
+    // Update semaphores states
     connect(trains[0],SIGNAL(updateGUI(int,int)),SLOT(updateInterface(int,int)));
     connect(trains[1],SIGNAL(updateGUI(int,int)),SLOT(updateInterface(int,int)));
     connect(trains[2],SIGNAL(updateGUI(int,int)),SLOT(updateInterface(int,int)));
@@ -49,7 +64,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(trains[4],SIGNAL(updateGUI(int,int)),SLOT(updateInterface(int,int)));
     connect(trains[5],SIGNAL(updateGUI(int,int)),SLOT(updateInterface(int,int)));
     connect(trains[6],SIGNAL(updateGUI(int,int)),SLOT(updateInterface(int,int)));
-    
+
     trains[0]->start();
     trains[1]->start();
     trains[2]->start();
@@ -95,7 +110,7 @@ void MainWindow::updateInterface(int id, int x, int y)
 }
 
 void MainWindow::updateInterface(int id, int state)
-{   
+{
     QString color = "background-color:green;border-radius:14px;color:white;";
     if(!state) color = "background-color:red;border-radius:14px;color:white;";
 
@@ -135,3 +150,44 @@ void MainWindow::updateInterface(int id, int state)
     }
 }
 
+void MainWindow::updateInterface(int id, double mean, double sd, double lastValue){
+    switch(id){
+        case 1:
+            ui->labelLapTrain1AT->setText(QString::number(floor(mean * 100) / 100) + "s");
+            ui->labelLapTrain1SD->setText(QString::number(floor(sd * 100) / 100));
+            ui->labelLapTrain1LP->setText(QString::number(floor(lastValue * 100) / 100) + "s");
+            break;
+        case 2:
+            ui->labelLapTrain2AT->setText(QString::number(floor(mean * 100) / 100) + "s");
+            ui->labelLapTrain2SD->setText(QString::number(floor(sd * 100) / 100));
+            ui->labelLapTrain2LP->setText(QString::number(floor(lastValue * 100) / 100) + "s");
+            break;
+        case 3:
+            ui->labelLapTrain3AT->setText(QString::number(floor(mean * 100) / 100) + "s");
+            ui->labelLapTrain3SD->setText(QString::number(floor(sd * 100) / 100));
+            ui->labelLapTrain3LP->setText(QString::number(floor(lastValue * 100) / 100) + "s");
+            break;
+        case 4:
+            ui->labelLapTrain4AT->setText(QString::number(floor(mean * 100) / 100) + "s");
+            ui->labelLapTrain4SD->setText(QString::number(floor(sd * 100) / 100));
+            ui->labelLapTrain4LP->setText(QString::number(floor(lastValue * 100) / 100) + "s");
+            break;
+        case 5:
+            ui->labelLapTrain5AT->setText(QString::number(floor(mean * 100) / 100) + "s");
+            ui->labelLapTrain5SD->setText(QString::number(floor(sd * 100) / 100));
+            ui->labelLapTrain5LP->setText(QString::number(floor(lastValue * 100) / 100) + "s");
+            break;
+        case 6:
+            ui->labelLapTrain6AT->setText(QString::number(floor(mean * 100) / 100) + "s");
+            ui->labelLapTrain6SD->setText(QString::number(floor(sd * 100) / 100));
+            ui->labelLapTrain6LP->setText(QString::number(floor(lastValue * 100) / 100) + "s");
+            break;
+        case 7:
+            ui->labelLapTrain7AT->setText(QString::number(floor(mean * 100) / 100) + "s");
+            ui->labelLapTrain7SD->setText(QString::number(floor(sd * 100) / 100));
+            ui->labelLapTrain7LP->setText(QString::number(floor(lastValue * 100) / 100) + "s");
+            break;
+        default:
+            break;
+    }
+}

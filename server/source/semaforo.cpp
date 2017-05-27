@@ -1,4 +1,4 @@
-#include "semaforo.h"
+#include "header/semaforo.h"
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>

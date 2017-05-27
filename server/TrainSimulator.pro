@@ -12,18 +12,21 @@ TARGET = TrabalhoTrem
 TEMPLATE = app
 
 
-SOURCES += main.cpp\
-        mainwindow.cpp \
-    trem.cpp \
-    semaforo.cpp \
-    system_train.cpp
+SOURCES += \
+    source/main.cpp \
+    source/mainwindow.cpp \
+    source/semaforo.cpp \
+    source/system_train.cpp \
+    source/trem.cpp
 
-HEADERS  += mainwindow.h \
-    trem.h \
-    semaforo.h \
-    system_train.h
+HEADERS  += \
+    header/mainwindow.h \
+    header/semaforo.h \
+    header/system_train.h \
+    header/trem.h
 
-FORMS    += mainwindow.ui
+FORMS    += \
+    forms/mainwindow.ui
 
 CONFIG  += c++11
 LIBS += -pthread

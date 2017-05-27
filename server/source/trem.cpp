@@ -1,6 +1,8 @@
-#include "trem.h"
-#include "system_train.h"
+#include "header/trem.h"
+#include "header/system_train.h"
 #include <iostream>
+#include <cstdio>
+#include <cmath>
 
 Trem::Trem(int id, int x, int y)
 {
@@ -9,6 +11,12 @@ Trem::Trem(int id, int x, int y)
     this->y = y;
     velocidade = 250;
     enable = true;
+    laps = 0;
+    currLap = 0;
+    lastLap = 0;
+    totalTime = 0;
+    xStart = x;
+    yStart = y;
 }
 
 Trem::~Trem()
@@ -509,7 +517,17 @@ void Trem::run(){
             default:
                 break;
         }
+
         this_thread::sleep_for(chrono::milliseconds(velocidade));
+        
+        currLap += velocidade / 1000.0;
+        if(x == xStart && y == yStart){
+            ++laps;
+            totalTime += currLap;
+            lastLap = currLap;
+            currLap = 0;
+            emit updateGUI(id, totalTime / laps, sqrt( pow((totalTime / laps) - lastLap,2) ), lastLap);
+        }
     }
 }
 

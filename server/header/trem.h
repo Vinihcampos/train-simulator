@@ -21,6 +21,7 @@ public:
 signals:
     void updateGUI(int,int,int);
     void updateGUI(int,int);
+    void updateGUI(int,double,double,double);
 
 private:
    std::thread threadTrem;
@@ -29,6 +30,11 @@ private:
    int y;
    int velocidade;
    bool enable;
+   int laps;
+   double currLap;
+   double totalTime;
+   double lastLap;
+   int xStart,yStart;
 };
 
 #endif // TREM_H
