@@ -96,8 +96,8 @@ void MainWindow::updateInterface(int id, int x, int y)
 
 void MainWindow::updateInterface(int id, int state)
 {   
-    QString color = "background-color:green;border-radius:14px";
-    if(!state) color = "background-color:red;border-radius:14px";
+    QString color = "background-color:green;border-radius:14px;color:white;";
+    if(!state) color = "background-color:red;border-radius:14px;color:white;";
 
     switch(id){
         case 0:
