@@ -20,6 +20,7 @@ public:
 
 signals:
     void updateGUI(int,int,int);
+    void updateGUI(int,int);
 
 private:
    std::thread threadTrem;
