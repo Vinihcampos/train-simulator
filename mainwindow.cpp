@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include "system_train.h"
+#include <iostream>
+#include <vector>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -26,12 +28,12 @@ MainWindow::MainWindow(QWidget *parent) :
     trains.push_back(new Trem(6,220,330));
     trains.push_back(new Trem(7,220,180));
 
-    trains[5]->setVelocidade(20);
-    trains[4]->setVelocidade(30);
-    trains[3]->setVelocidade(40);
-    trains[2]->setVelocidade(50);
-    trains[1]->setVelocidade(60);
-    trains[0]->setVelocidade(70);
+    //trains[5]->setVelocidade(20);
+    //trains[4]->setVelocidade(30);
+    //trains[3]->setVelocidade(40);
+    //trains[2]->setVelocidade(50);
+    //trains[1]->setVelocidade(60);
+    //trains[0]->setVelocidade(70);
     
     connect(trains[0],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
     connect(trains[1],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
@@ -40,6 +42,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(trains[4],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
     connect(trains[5],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
     connect(trains[6],SIGNAL(updateGUI(int,int,int)),SLOT(updateInterface(int,int,int)));
+    connect(trains[0],SIGNAL(updateGUI(int,int)),SLOT(updateInterface(int,int)));
+    connect(trains[1],SIGNAL(updateGUI(int,int)),SLOT(updateInterface(int,int)));
+    connect(trains[2],SIGNAL(updateGUI(int,int)),SLOT(updateInterface(int,int)));
+    connect(trains[3],SIGNAL(updateGUI(int,int)),SLOT(updateInterface(int,int)));
+    connect(trains[4],SIGNAL(updateGUI(int,int)),SLOT(updateInterface(int,int)));
+    connect(trains[5],SIGNAL(updateGUI(int,int)),SLOT(updateInterface(int,int)));
+    connect(trains[6],SIGNAL(updateGUI(int,int)),SLOT(updateInterface(int,int)));
     
     trains[0]->start();
     trains[1]->start();
@@ -79,6 +88,47 @@ void MainWindow::updateInterface(int id, int x, int y)
             break;
         case 7:
             ui->labelTrain7->setGeometry(x,y,20,20);
+            break;
+        default:
+            break;
+    }
+}
+
+void MainWindow::updateInterface(int id, int state)
+{   
+    QString color = "background-color:green;border-radius:14px;color:white;";
+    if(!state) color = "background-color:red;border-radius:14px;color:white;";
+
+    switch(id){
+        case 0:
+            ui->labelSemaphore1->setStyleSheet(color);
+            break;
+        case 1:
+            ui->labelSemaphore2->setStyleSheet(color);
+            break;
+        case 2:
+            ui->labelSemaphore3->setStyleSheet(color);
+            break;
+        case 3:
+            ui->labelSemaphore4->setStyleSheet(color);
+            break;
+        case 4:
+            ui->labelSemaphore5->setStyleSheet(color);
+            break;
+        case 5:
+            ui->labelSemaphore6->setStyleSheet(color);
+            break;
+        case 6:
+            ui->labelSemaphore7->setStyleSheet(color);
+            break;
+        case 7:
+            ui->labelSemaphore8->setStyleSheet(color);
+            break;
+        case 8:
+            ui->labelSemaphore9->setStyleSheet(color);
+            break;
+        case 9:
+            ui->labelSemaphore10->setStyleSheet(color);
             break;
         default:
             break;

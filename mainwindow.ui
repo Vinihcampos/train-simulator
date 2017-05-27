@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>678</width>
-    <height>435</height>
+    <width>663</width>
+    <height>422</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,6 +39,9 @@ border: 3px dashed white;</string>
     <property name="text">
      <string/>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QLabel" name="labelTrack3">
     <property name="geometry">
@@ -64,6 +67,9 @@ border: 3px dashed white;</string>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="labelTrack1">
@@ -91,6 +97,9 @@ border: 3px dashed white;</string>
     <property name="text">
      <string/>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QLabel" name="labelTrack7">
     <property name="geometry">
@@ -116,6 +125,9 @@ border: 3px dashed white;</string>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="labelTrack5">
@@ -143,6 +155,9 @@ border: 3px dashed white;</string>
     <property name="text">
      <string/>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QLabel" name="labelTrack6">
     <property name="geometry">
@@ -168,6 +183,9 @@ border: 3px dashed white;</string>
     </property>
     <property name="text">
      <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QLabel" name="labelTrack4">
@@ -195,6 +213,9 @@ border: 3px dashed white;</string>
     <property name="text">
      <string/>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
    </widget>
    <widget class="QLabel" name="labelTrain3">
     <property name="geometry">
@@ -209,7 +230,7 @@ border: 3px dashed white;</string>
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: red;
+     <string notr="true">background-color: blue;
 color: white;</string>
     </property>
     <property name="frameShape">
@@ -238,7 +259,7 @@ color: white;</string>
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: red;
+     <string notr="true">background-color: blue;
 color: white;</string>
     </property>
     <property name="frameShape">
@@ -267,7 +288,7 @@ color: white;</string>
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: red;
+     <string notr="true">background-color: blue;
 color: white;</string>
     </property>
     <property name="frameShape">
@@ -296,7 +317,7 @@ color: white;</string>
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: red;
+     <string notr="true">background-color: blue;
 color: white;</string>
     </property>
     <property name="frameShape">
@@ -325,7 +346,7 @@ color: white;</string>
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: red;
+     <string notr="true">background-color: blue;
 color: white;</string>
     </property>
     <property name="frameShape">
@@ -354,7 +375,7 @@ color: white;</string>
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: red;
+     <string notr="true">background-color: blue;
 color: white;</string>
     </property>
     <property name="frameShape">
@@ -383,7 +404,7 @@ color: white;</string>
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: red;
+     <string notr="true">background-color: blue;
 color: white;</string>
     </property>
     <property name="frameShape">
@@ -399,13 +420,223 @@ color: white;</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
+   <widget class="QLabel" name="labelSemaphore1">
+    <property name="geometry">
+     <rect>
+      <x>116</x>
+      <y>75</y>
+      <width>28</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: green;
+border-radius: 14px;
+color:white;</string>
+    </property>
+    <property name="text">
+     <string>1</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelSemaphore2">
+    <property name="geometry">
+     <rect>
+      <x>315</x>
+      <y>75</y>
+      <width>28</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: green;
+border-radius: 14px;
+color:white;</string>
+    </property>
+    <property name="text">
+     <string>2</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelSemaphore3">
+    <property name="geometry">
+     <rect>
+      <x>514</x>
+      <y>75</y>
+      <width>28</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: green;
+border-radius: 14px;
+color:white;</string>
+    </property>
+    <property name="text">
+     <string>3</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelSemaphore4">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>125</y>
+      <width>28</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: green;
+border-radius: 14px;
+color:white;</string>
+    </property>
+    <property name="text">
+     <string>4</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelSemaphore5">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>125</y>
+      <width>28</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: green;
+border-radius: 14px;
+color:white;</string>
+    </property>
+    <property name="text">
+     <string>5</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelSemaphore6">
+    <property name="geometry">
+     <rect>
+      <x>270</x>
+      <y>225</y>
+      <width>28</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: green;
+border-radius: 14px;
+color:white;</string>
+    </property>
+    <property name="text">
+     <string>6</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelSemaphore7">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>225</y>
+      <width>28</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: green;
+border-radius: 14px;
+color:white;</string>
+    </property>
+    <property name="text">
+     <string>7</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelSemaphore8">
+    <property name="geometry">
+     <rect>
+      <x>116</x>
+      <y>275</y>
+      <width>28</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: green;
+border-radius: 14px;
+color:white;</string>
+    </property>
+    <property name="text">
+     <string>8</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelSemaphore9">
+    <property name="geometry">
+     <rect>
+      <x>315</x>
+      <y>275</y>
+      <width>28</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: green;
+border-radius: 14px;
+color:white;</string>
+    </property>
+    <property name="text">
+     <string>9</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelSemaphore10">
+    <property name="geometry">
+     <rect>
+      <x>514</x>
+      <y>275</y>
+      <width>28</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: green;
+border-radius: 14px;
+color:white;</string>
+    </property>
+    <property name="text">
+     <string>10</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>678</width>
+     <width>663</width>
      <height>28</height>
     </rect>
    </property>

@@ -21,6 +21,7 @@ public:
 
 public slots:
     void updateInterface(int,int,int);
+    void updateInterface(int,int);
 
 private:
     Ui::MainWindow *ui;
