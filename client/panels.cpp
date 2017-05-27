@@ -41,11 +41,29 @@ WINDOW * windows[4];
 int n_general_choices = ARRAY_SIZE(general_choices);
 int n_train_choices = ARRAY_SIZE(train_choices);
 
-// Functions
+// Arrays of functions for each panel
 void (*gen_funcs[3])(void);					// Functions for general menu
 void (*train_mturn_funcs[3])(void);			// Functions for turn train menu
 void (*train_mspeed_funcs[3])(void);		// Functions for train speed menu
 void (*train_speed_funcs[3])(void);			// Function for train speed window
+
+/*------------- Functions for each panel ----------------*/
+// General panel
+void up_general_menu();
+void down_general_menu();
+void choose_general_menu();
+
+void up_general_menu() {
+	menu_driver(menus[0], REQ_UP_ITEM);	
+}
+
+void down_general_menu() {
+	menu_driver(menus[0], REQ_DOWN_ITEM);	
+}
+
+void choose_general_menu() {
+	
+}
 
 int main(void) {
 	// Init ncurses
@@ -53,6 +71,7 @@ int main(void) {
 	start_color();
 	cbreak();
 	noecho();
+	keypad(stdscr, TRUE);
 
 	/*------------ Creating elements -------------*/
 	// General menu
@@ -69,7 +88,10 @@ int main(void) {
 	post_menu(menus[0]);
 	wrefresh(windows[0]);
 	panels[0] = new_panel(windows[0]);
-	set_panel_userptr(panels[0], gen_funcs);
+	gen_funcs[DOWN_COMMAND] = down_general_menu;
+	gen_funcs[UP_COMMAND] = up_general_menu;
+	gen_funcs[CHOOSE_COMMAND] = choose_general_menu;
+	set_panel_userptr(panels[0], reinterpret_cast<void *>(gen_funcs));
 	
 	// Trains menu
 	ITEM * * train_turn_items = (ITEM **) calloc(n_train_choices + 1, sizeof(ITEM *));
@@ -105,27 +127,34 @@ int main(void) {
 
 	update_panels();
 	doupdate();
+	refresh();
 	/*------------ Main loop ---------------*/
 	// The key pressed
-	int command;
+	int command = 0;
 
 	while (true) {
-		command = getch();
+		PANEL * top = panel_below((PANEL *)0);
+		command = wgetch(panel_window(top));
+		void (**funcs)(void) = reinterpret_cast<void (**)(void)>(const_cast<void *>(panel_userptr(top)));
 		switch(command) {	
 			case KEY_DOWN: {
-				void (*down)(void) = reinterpret_cast<void(*)(void)>(
-						panel_userptr(panel_below((PANEL *)0))[DOWN_COMMAND]); // Top panel
+					funcs[DOWN_COMMAND]();
 				break;
 			}
 			case KEY_UP: {
+					funcs[UP_COMMAND]();
 				break;
 		    }
 			case 10: {
+					funcs[CHOOSE_COMMAND]();
 				break;		 
 			}
 		}
 		if (command == -1) break;
 		refresh();
+		wrefresh(panel_window(top));
+		update_panels();
+		doupdate();
 	}
 
 	endwin();
