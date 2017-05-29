@@ -6,12 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1057</width>
-    <height>422</height>
+    <width>941</width>
+    <height>607</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Train Simulator</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QLabel" name="labelTrack2">
@@ -655,16 +655,16 @@ color:white;</string>
    <widget class="QLabel" name="labelLapTrain1">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>40</y>
-      <width>110</width>
-      <height>35</height>
+      <x>30</x>
+      <y>370</y>
+      <width>120</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Ubuntu</family>
-      <pointsize>22</pointsize>
+      <pointsize>14</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -684,16 +684,16 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain2">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>84</y>
-      <width>110</width>
-      <height>35</height>
+      <x>30</x>
+      <y>400</y>
+      <width>120</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Ubuntu</family>
-      <pointsize>22</pointsize>
+      <pointsize>14</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -713,16 +713,16 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain3">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>127</y>
-      <width>110</width>
-      <height>35</height>
+      <x>30</x>
+      <y>430</y>
+      <width>120</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Ubuntu</family>
-      <pointsize>22</pointsize>
+      <pointsize>14</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -742,16 +742,16 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain4">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>172</y>
-      <width>110</width>
-      <height>35</height>
+      <x>30</x>
+      <y>460</y>
+      <width>120</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Ubuntu</family>
-      <pointsize>22</pointsize>
+      <pointsize>14</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -771,16 +771,16 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain5">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>218</y>
-      <width>110</width>
-      <height>35</height>
+      <x>30</x>
+      <y>490</y>
+      <width>120</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Ubuntu</family>
-      <pointsize>22</pointsize>
+      <pointsize>14</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -800,16 +800,16 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain6">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>262</y>
-      <width>110</width>
-      <height>35</height>
+      <x>30</x>
+      <y>520</y>
+      <width>120</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Ubuntu</family>
-      <pointsize>22</pointsize>
+      <pointsize>14</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -829,16 +829,16 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain7">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>305</y>
-      <width>110</width>
-      <height>35</height>
+      <x>30</x>
+      <y>550</y>
+      <width>120</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
      <font>
       <family>Ubuntu</family>
-      <pointsize>22</pointsize>
+      <pointsize>14</pointsize>
      </font>
     </property>
     <property name="styleSheet">
@@ -858,10 +858,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain1AT">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>40</y>
-      <width>80</width>
-      <height>35</height>
+      <x>400</x>
+      <y>370</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -887,10 +887,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain1SD">
     <property name="geometry">
      <rect>
-      <x>860</x>
-      <y>40</y>
-      <width>80</width>
-      <height>35</height>
+      <x>520</x>
+      <y>370</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -916,10 +916,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain1LP">
     <property name="geometry">
      <rect>
-      <x>950</x>
-      <y>40</y>
-      <width>80</width>
-      <height>35</height>
+      <x>280</x>
+      <y>370</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -945,9 +945,9 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelTitle_2">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>20</y>
-      <width>111</width>
+      <x>30</x>
+      <y>350</y>
+      <width>120</width>
       <height>20</height>
      </rect>
     </property>
@@ -958,7 +958,7 @@ color: #FFF;</string>
      </font>
     </property>
     <property name="text">
-     <string>Identificador</string>
+     <string>Identifier</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -967,9 +967,9 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelTitle_3">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>20</y>
-      <width>81</width>
+      <x>400</x>
+      <y>350</y>
+      <width>110</width>
       <height>20</height>
      </rect>
     </property>
@@ -989,9 +989,9 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelTitle_4">
     <property name="geometry">
      <rect>
-      <x>860</x>
-      <y>20</y>
-      <width>81</width>
+      <x>520</x>
+      <y>350</y>
+      <width>110</width>
       <height>20</height>
      </rect>
     </property>
@@ -1002,7 +1002,7 @@ color: #FFF;</string>
      </font>
     </property>
     <property name="text">
-     <string>SD</string>
+     <string>Standard Deviation</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignCenter</set>
@@ -1011,9 +1011,9 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelTitle_5">
     <property name="geometry">
      <rect>
-      <x>950</x>
-      <y>20</y>
-      <width>81</width>
+      <x>280</x>
+      <y>350</y>
+      <width>110</width>
       <height>20</height>
      </rect>
     </property>
@@ -1033,10 +1033,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain2SD">
     <property name="geometry">
      <rect>
-      <x>860</x>
-      <y>84</y>
-      <width>80</width>
-      <height>35</height>
+      <x>520</x>
+      <y>400</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1062,10 +1062,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain2AT">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>84</y>
-      <width>80</width>
-      <height>35</height>
+      <x>400</x>
+      <y>400</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1091,10 +1091,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain2LP">
     <property name="geometry">
      <rect>
-      <x>950</x>
-      <y>84</y>
-      <width>80</width>
-      <height>35</height>
+      <x>280</x>
+      <y>400</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1120,10 +1120,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain3SD">
     <property name="geometry">
      <rect>
-      <x>860</x>
-      <y>127</y>
-      <width>80</width>
-      <height>35</height>
+      <x>520</x>
+      <y>430</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1149,10 +1149,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain3AT">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>127</y>
-      <width>80</width>
-      <height>35</height>
+      <x>400</x>
+      <y>430</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1178,10 +1178,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain4LP">
     <property name="geometry">
      <rect>
-      <x>950</x>
-      <y>172</y>
-      <width>80</width>
-      <height>35</height>
+      <x>280</x>
+      <y>460</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1207,10 +1207,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain4SD">
     <property name="geometry">
      <rect>
-      <x>860</x>
-      <y>172</y>
-      <width>80</width>
-      <height>35</height>
+      <x>520</x>
+      <y>460</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1236,10 +1236,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain3LP">
     <property name="geometry">
      <rect>
-      <x>950</x>
-      <y>127</y>
-      <width>80</width>
-      <height>35</height>
+      <x>280</x>
+      <y>430</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1265,10 +1265,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain4AT">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>172</y>
-      <width>80</width>
-      <height>35</height>
+      <x>400</x>
+      <y>460</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1294,10 +1294,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain7AT">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>305</y>
-      <width>80</width>
-      <height>35</height>
+      <x>400</x>
+      <y>550</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1323,10 +1323,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain7LP">
     <property name="geometry">
      <rect>
-      <x>950</x>
-      <y>305</y>
-      <width>80</width>
-      <height>35</height>
+      <x>280</x>
+      <y>550</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1352,10 +1352,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain6AT">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>262</y>
-      <width>80</width>
-      <height>35</height>
+      <x>400</x>
+      <y>520</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1381,10 +1381,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain7SD">
     <property name="geometry">
      <rect>
-      <x>860</x>
-      <y>305</y>
-      <width>80</width>
-      <height>35</height>
+      <x>520</x>
+      <y>550</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1410,10 +1410,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain5LP">
     <property name="geometry">
      <rect>
-      <x>950</x>
-      <y>218</y>
-      <width>80</width>
-      <height>35</height>
+      <x>280</x>
+      <y>490</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1439,10 +1439,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain6SD">
     <property name="geometry">
      <rect>
-      <x>860</x>
-      <y>262</y>
-      <width>80</width>
-      <height>35</height>
+      <x>520</x>
+      <y>520</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1468,10 +1468,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain5SD">
     <property name="geometry">
      <rect>
-      <x>860</x>
-      <y>218</y>
-      <width>80</width>
-      <height>35</height>
+      <x>520</x>
+      <y>490</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1497,10 +1497,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain6LP">
     <property name="geometry">
      <rect>
-      <x>950</x>
-      <y>262</y>
-      <width>80</width>
-      <height>35</height>
+      <x>280</x>
+      <y>520</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1526,10 +1526,10 @@ color: #FFF;</string>
    <widget class="QLabel" name="labelLapTrain5AT">
     <property name="geometry">
      <rect>
-      <x>770</x>
-      <y>218</y>
-      <width>80</width>
-      <height>35</height>
+      <x>400</x>
+      <y>490</y>
+      <width>110</width>
+      <height>30</height>
      </rect>
     </property>
     <property name="font">
@@ -1552,16 +1552,269 @@ color: #FFF;</string>
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>1057</width>
-     <height>28</height>
-    </rect>
-   </property>
+   <widget class="QLabel" name="labelLapTrain2CL">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>400</y>
+      <width>110</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#F58220;
+color: #FFF;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelTitle_6">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>350</y>
+      <width>110</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu</family>
+      <pointsize>8</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Current Lap</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelLapTrain5CL">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>490</y>
+      <width>110</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#FFC50B;
+color: #FFF;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelLapTrain1CL">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>370</y>
+      <width>110</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#E3066F;
+color: #FFF;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelLapTrain3CL">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>430</y>
+      <width>110</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#800F69;
+color: #FFF;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelLapTrain7CL">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>550</y>
+      <width>110</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#999;
+color: #FFF;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelLapTrain6CL">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>520</y>
+      <width>110</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#00CCCC;
+color: #FFF;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelLapTrain4CL">
+    <property name="geometry">
+     <rect>
+      <x>160</x>
+      <y>460</y>
+      <width>110</width>
+      <height>30</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu</family>
+      <pointsize>12</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:#00F;
+color: #FFF;</string>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
+   <widget class="QListWidget" name="listLog">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>40</y>
+      <width>261</width>
+      <height>541</height>
+     </rect>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="labelTitle_7">
+    <property name="geometry">
+     <rect>
+      <x>650</x>
+      <y>0</y>
+      <width>261</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Ubuntu</family>
+      <pointsize>20</pointsize>
+     </font>
+    </property>
+    <property name="text">
+     <string>Log</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
+    </property>
+   </widget>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -1570,8 +1823,8 @@ color: #FFF;</string>
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
+   <addaction name="separator"/>
   </widget>
-  <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>

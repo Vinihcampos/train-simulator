@@ -5,6 +5,7 @@
 #include <thread>
 #include <chrono>
 #include "semaforo.h"
+
 using namespace std;
 
 class Trem : public QObject
@@ -21,7 +22,8 @@ public:
 signals:
     void updateGUI(int,int,int);
     void updateGUI(int,int);
-    void updateGUI(int,double,double,double);
+    void updateGUI(int,double,double,double,double);
+    void updateGUI();
 
 private:
    std::thread threadTrem;

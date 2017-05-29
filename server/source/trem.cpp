@@ -1,6 +1,7 @@
 #include "header/trem.h"
 #include "header/system_train.h"
 #include <iostream>
+#include <string>
 #include <cstdio>
 #include <cmath>
 
@@ -9,7 +10,7 @@ Trem::Trem(int id, int x, int y)
     this->id = id;
     this->x = x;
     this->y = y;
-    velocidade = 250;
+    velocidade = 500;
     enable = true;
     laps = 0;
     currLap = 0;
@@ -51,6 +52,8 @@ void Trem::run(){
                         if(x == 100) {
                             if(System::semaphores[0]->getContador()){
                                 System::semaphores[0]->P();
+                                System::logs.push_back("T1.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore1.P()");
+                                emit updateGUI();
                                 emit updateGUI(0, System::semaphores[0]->getContador());
                                 x+=10;
                             }
@@ -59,11 +62,15 @@ void Trem::run(){
                         if(y == 150){ 
                             if(!System::semaphores[0]->getContador()) {
                                 System::semaphores[0]->V();
+                                System::logs.push_back("T1.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore1.V()");
+                                emit updateGUI();
                                 emit updateGUI(0, System::semaphores[0]->getContador());
                             }y += 10;                                
                         }else if(y == 210){
                             if(System::semaphores[7]->getContador()){
                                 System::semaphores[7]->P();
+                                System::logs.push_back("T1.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore8.P()");
+                                emit updateGUI();
                                 emit updateGUI(7, System::semaphores[7]->getContador());
                                 y+=10;
                             }
@@ -73,6 +80,8 @@ void Trem::run(){
                         if(x == 100) 
                             if(!System::semaphores[7]->getContador()){ 
                                 System::semaphores[7]->V();
+                                System::logs.push_back("T1.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore8.V()");
+                                emit updateGUI();
                                 emit updateGUI(7, System::semaphores[7]->getContador());
                             }
                         x-=10;
@@ -88,38 +97,54 @@ void Trem::run(){
                         if(x == 140){ 
                             if(!System::semaphores[0]->getContador()) {
                                 System::semaphores[0]->V();
+                                System::logs.push_back("T2.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore1.V()");
+                                emit updateGUI();
                                 emit updateGUI(0, System::semaphores[0]->getContador());
                             }x+=10;
                         }else if(x == 300){
                             if(System::semaphores[4]->getContador()){
                                 System::semaphores[4]->P();
+                                System::logs.push_back("T2.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore5.P()");
+                                emit updateGUI();
                                 emit updateGUI(4, System::semaphores[4]->getContador());
                                 if(System::semaphores[1]->getContador()){
                                     System::semaphores[1]->P();
+                                    System::logs.push_back("T2.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore2.P()");
+                                    emit updateGUI();
                                     emit updateGUI(1, System::semaphores[1]->getContador());
                                     if(System::semaphores[3]->getContador()){
                                         System::semaphores[3]->P();
+                                        System::logs.push_back("T2.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore4.P()");
+                                        emit updateGUI();
                                         emit updateGUI(3, System::semaphores[3]->getContador());
                                         x+=10;
                                     }
                                 }
                                 else if(!System::semaphores[1]->getContador() && System::semaphores[3]->getContador()){
                                     System::semaphores[3]->P();
+                                    System::logs.push_back("T2.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore4.P()");
+                                    emit updateGUI();
                                     emit updateGUI(3, System::semaphores[3]->getContador());
                                     x+=10;
                                 }
                             }else if(!System::semaphores[4]->getContador()){
                                 if(System::semaphores[1]->getContador()){
                                     System::semaphores[1]->P();
+                                    System::logs.push_back("T2.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore2.P()");
+                                    emit updateGUI();
                                     emit updateGUI(1, System::semaphores[1]->getContador());
                                     if(System::semaphores[3]->getContador()){
                                         System::semaphores[3]->P();
+                                        System::logs.push_back("T2.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore4.P()");
+                                        emit updateGUI();
                                         emit updateGUI(3, System::semaphores[3]->getContador());
                                         x+=10;
                                     }
                                 }
                                 else if(!System::semaphores[1]->getContador() && System::semaphores[3]->getContador()){
                                     System::semaphores[3]->P();
+                                    System::logs.push_back("T2.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore4.P()");
+                                    emit updateGUI();
                                     emit updateGUI(3, System::semaphores[3]->getContador());
                                     x+=10;
                                 }
@@ -131,20 +156,28 @@ void Trem::run(){
                         if(x == 140) {
                             if(System::semaphores[0]->getContador()){
                                 System::semaphores[0]->P();
+                                System::logs.push_back("T2.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore1.P()");
+                                emit updateGUI();
                                 emit updateGUI(0, System::semaphores[0]->getContador());
                                 x-=10;
                             }
                         }else if(x == 200){
                             if(!System::semaphores[3]->getContador()) {
                                 System::semaphores[3]->V();
+                                System::logs.push_back("T2.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore4.V()");
+                                emit updateGUI();
                                 emit updateGUI(3, System::semaphores[3]->getContador());
                             }
                             if(!System::semaphores[1]->getContador()) {
                                 System::semaphores[1]->V();
+                                System::logs.push_back("T2.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore2.V()");
+                                emit updateGUI();
                                 emit updateGUI(1, System::semaphores[1]->getContador());
                             }
                             if(!System::semaphores[4]->getContador()) {
                                 System::semaphores[4]->V();
+                                System::logs.push_back("T2.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore5.V()");
+                                emit updateGUI();
                                 emit updateGUI(4, System::semaphores[4]->getContador());
                             }
                             x-=10;
@@ -161,20 +194,28 @@ void Trem::run(){
                         if(x == 340){
                             if(!System::semaphores[3]->getContador()) {
                                 System::semaphores[3]->V();
+                                System::logs.push_back("T3.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore4.V()");
+                                emit updateGUI();
                                 emit updateGUI(3, System::semaphores[3]->getContador());
                             }
                             if(!System::semaphores[1]->getContador()) {
                                 System::semaphores[1]->V();
+                                System::logs.push_back("T3.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore2.V()");
+                                emit updateGUI();
                                 emit updateGUI(1, System::semaphores[1]->getContador());
                             }
                             if(!System::semaphores[4]->getContador()) {
                                 System::semaphores[4]->V();
+                                System::logs.push_back("T3.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore5.V()");
+                                emit updateGUI();
                                 emit updateGUI(4, System::semaphores[4]->getContador());
                             }
                             x+=10;
                         }else if(x == 500){
                             if(System::semaphores[2]->getContador()){
                                 System::semaphores[2]->P();
+                                System::logs.push_back("T3.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore3.P()");
+                                emit updateGUI();
                                 emit updateGUI(2, System::semaphores[2]->getContador());
                                 x+=10;
                             }
@@ -186,33 +227,47 @@ void Trem::run(){
                         if(x == 440){
                             if(System::semaphores[4]->getContador()){
                                 System::semaphores[4]->P();
+                                System::logs.push_back("T3.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore5.P()");
+                                emit updateGUI();
                                 emit updateGUI(4, System::semaphores[4]->getContador());
                                 if(System::semaphores[1]->getContador()){
                                     System::semaphores[1]->P();
+                                    System::logs.push_back("T3.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore2.P()");
+                                    emit updateGUI();
                                     emit updateGUI(1, System::semaphores[1]->getContador());
                                     if(System::semaphores[3]->getContador()){
                                         System::semaphores[3]->P();
+                                        System::logs.push_back("T3.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore4.P()");
+                                        emit updateGUI();
                                         emit updateGUI(3, System::semaphores[3]->getContador());
                                         x-=10;
                                     }
                                 }
                                 else if(!System::semaphores[1]->getContador() && System::semaphores[3]->getContador()){
                                     System::semaphores[3]->P();
+                                    System::logs.push_back("T3.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore4.P()");
+                                    emit updateGUI();
                                     emit updateGUI(3, System::semaphores[3]->getContador());
                                     x-=10;
                                 }
                             }else if(!System::semaphores[4]->getContador()){
                                 if(System::semaphores[1]->getContador()){
                                     System::semaphores[1]->P();
+                                    System::logs.push_back("T3.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore2.P()");
+                                    emit updateGUI();
                                     emit updateGUI(1, System::semaphores[1]->getContador());
                                     if(System::semaphores[3]->getContador()){
                                         System::semaphores[3]->P();
+                                        System::logs.push_back("T3.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore4.P()");
+                                        emit updateGUI();
                                         emit updateGUI(3, System::semaphores[3]->getContador());
                                         x-=10;
                                     }
                                 }
                                 else if(!System::semaphores[1]->getContador() && System::semaphores[3]->getContador()){
                                     System::semaphores[3]->P();
+                                    System::logs.push_back("T3.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore4.P()");
+                                    emit updateGUI();
                                     emit updateGUI(3, System::semaphores[3]->getContador());
                                     x-=10;
                                 }
@@ -220,6 +275,8 @@ void Trem::run(){
                         }else if(x == 500) {
                             if(!System::semaphores[2]->getContador()) {
                                 System::semaphores[2]->V();
+                                System::logs.push_back("T3.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore3.V()");
+                                emit updateGUI();
                                 emit updateGUI(2, System::semaphores[2]->getContador());
                             }
                             x-=10;
@@ -234,12 +291,16 @@ void Trem::run(){
                         if(y == 150){
                             if(System::semaphores[2]->getContador()){
                                 System::semaphores[2]->P();
+                                System::logs.push_back("T4.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore3.P()");
+                                emit updateGUI();
                                 emit updateGUI(2, System::semaphores[2]->getContador());
                                 y-=10;
                             }
                         }else if(y == 210){
                             if(!System::semaphores[9]->getContador()) {
                                 System::semaphores[9]->V();
+                                System::logs.push_back("T4.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore10.V()");
+                                emit updateGUI();
                                 emit updateGUI(9, System::semaphores[9]->getContador());
                             }y-=10;
                         }
@@ -247,6 +308,8 @@ void Trem::run(){
                     }else if (y == 30 && x < 620){ 
                         if(x == 540) if(!System::semaphores[2]->getContador()) {
                             System::semaphores[2]->V();
+                            System::logs.push_back("T4.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore3.V()");
+                            emit updateGUI();
                             emit updateGUI(2, System::semaphores[2]->getContador());
                         }x+=10;
                     }else if (x == 620 && y < 330){ 
@@ -255,6 +318,8 @@ void Trem::run(){
                         if(x == 540){
                             if(System::semaphores[9]->getContador()){
                                 System::semaphores[9]->P();
+                                System::logs.push_back("T4.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore10.P()");
+                                emit updateGUI();
                                 emit updateGUI(9, System::semaphores[9]->getContador());
                                 x-=10;
                             }
@@ -272,17 +337,25 @@ void Trem::run(){
                         if(x == 440){
                             if(!System::semaphores[6]->getContador()) {
                                 System::semaphores[6]->V();
+                                System::logs.push_back("T5.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore7.V()");
+                                emit updateGUI();
                                 emit updateGUI(6, System::semaphores[6]->getContador());
                             }if(!System::semaphores[8]->getContador()) {
                                 System::semaphores[8]->V();
+                                System::logs.push_back("T5.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore9.V()");
+                                emit updateGUI();
                                 emit updateGUI(8, System::semaphores[8]->getContador());
                             }if(!System::semaphores[5]->getContador()) {
                                 System::semaphores[5]->V();
+                                System::logs.push_back("T5.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore6.V()");
+                                emit updateGUI();
                                 emit updateGUI(5, System::semaphores[5]->getContador());
                             }x+=10;
                         }else if(x == 500){
                             if(System::semaphores[9]->getContador()){
                                 System::semaphores[9]->P();
+                                System::logs.push_back("T5.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore10.P()");
+                                emit updateGUI();
                                 emit updateGUI(9, System::semaphores[9]->getContador());
                                 x+=10;
                             }
@@ -294,33 +367,47 @@ void Trem::run(){
                         if(x == 340){
                             if(System::semaphores[5]->getContador()){
                                 System::semaphores[5]->P();
+                                System::logs.push_back("T5.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore6.P()");
+                                emit updateGUI();
                                 emit updateGUI(5, System::semaphores[5]->getContador());
                                 if(System::semaphores[8]->getContador()){
                                     System::semaphores[8]->P();
+                                    System::logs.push_back("T5.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore9.P()");
+                                    emit updateGUI();
                                     emit updateGUI(8, System::semaphores[8]->getContador());
                                     if(System::semaphores[6]->getContador()){
                                         System::semaphores[6]->P();
+                                        System::logs.push_back("T5.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore7.P()");
+                                        emit updateGUI();
                                         emit updateGUI(6, System::semaphores[6]->getContador());
                                         x-=10;
                                     }
                                 }
                                 else if(!System::semaphores[8]->getContador() && System::semaphores[6]->getContador()){
                                     System::semaphores[6]->P();
+                                    System::logs.push_back("T5.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore7.P()");
+                                    emit updateGUI();
                                     emit updateGUI(6, System::semaphores[6]->getContador());
                                     x-=10;
                                 }
                             }else if(!System::semaphores[5]->getContador()){
                                 if(System::semaphores[8]->getContador()){
                                     System::semaphores[8]->P();
+                                    System::logs.push_back("T5.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore9.P()");
+                                    emit updateGUI();
                                     emit updateGUI(8, System::semaphores[8]->getContador());
                                     if(System::semaphores[6]->getContador()){
                                         System::semaphores[6]->P();
+                                        System::logs.push_back("T5.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore7.P()");
+                                        emit updateGUI();
                                         emit updateGUI(6, System::semaphores[6]->getContador());
                                         x-=10;
                                     }
                                 }
                                 else if(!System::semaphores[8]->getContador() && System::semaphores[6]->getContador()){
                                     System::semaphores[6]->P();
+                                    System::logs.push_back("T5.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore7.P()");
+                                    emit updateGUI();
                                     emit updateGUI(6, System::semaphores[6]->getContador());
                                     x-=10;
                                 }
@@ -328,6 +415,8 @@ void Trem::run(){
                         }else if(x == 500) {
                             if(!System::semaphores[9]->getContador()) {
                                 System::semaphores[9]->V();
+                                System::logs.push_back("T5.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore10.V()");
+                                emit updateGUI();
                                 emit updateGUI(9, System::semaphores[9]->getContador());
                             }x-=10;
                         }else x-=10;
@@ -343,38 +432,54 @@ void Trem::run(){
                         if(x == 140) {
                             if(!System::semaphores[7]->getContador()) {
                                 System::semaphores[7]->V();
+                                System::logs.push_back("T6.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore8.P()");
+                                emit updateGUI();
                                 emit updateGUI(7, System::semaphores[7]->getContador());
                             }x+=10;
                         }else if(x == 200){
                             if(System::semaphores[5]->getContador()){
                                 System::semaphores[5]->P();
+                                System::logs.push_back("T6.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore6.P()");
+                                emit updateGUI();
                                 emit updateGUI(5, System::semaphores[5]->getContador());
                                 if(System::semaphores[8]->getContador()){
                                     System::semaphores[8]->P();
+                                    System::logs.push_back("T6.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore9.P()");
+                                    emit updateGUI();
                                     emit updateGUI(8, System::semaphores[8]->getContador());
                                     if(System::semaphores[6]->getContador()){
                                         System::semaphores[6]->P();
+                                        System::logs.push_back("T6.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore7.P()");
+                                        emit updateGUI();
                                         emit updateGUI(6, System::semaphores[6]->getContador());
                                         x+=10;
                                     }
                                 }
                                 else if(!System::semaphores[8]->getContador() && System::semaphores[6]->getContador()){
                                     System::semaphores[6]->P();
+                                    System::logs.push_back("T6.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore7.P()");
+                                    emit updateGUI();
                                     emit updateGUI(6, System::semaphores[6]->getContador());
                                     x+=10;
                                 }
                             }else if(!System::semaphores[5]->getContador()){
                                 if(System::semaphores[8]->getContador()){
                                     System::semaphores[8]->P();
+                                    System::logs.push_back("T6.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore9.P()");
+                                    emit updateGUI();
                                     emit updateGUI(8, System::semaphores[8]->getContador());
                                     if(System::semaphores[6]->getContador()){
                                         System::semaphores[6]->P();
+                                        System::logs.push_back("T6.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore7.P()");
+                                        emit updateGUI();
                                         emit updateGUI(6, System::semaphores[6]->getContador());
                                         x+=10;
                                     }
                                 }
                                 else if(!System::semaphores[8]->getContador() && System::semaphores[6]->getContador()){
                                     System::semaphores[6]->P();
+                                    System::logs.push_back("T6.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore7.P()");
+                                    emit updateGUI();
                                     emit updateGUI(6, System::semaphores[6]->getContador());
                                     x+=10;
                                 }
@@ -386,17 +491,25 @@ void Trem::run(){
                         if(x == 300){
                             if(!System::semaphores[6]->getContador()){
                                 System::semaphores[6]->V();
+                                System::logs.push_back("T6.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore7.V()");
+                                emit updateGUI();
                                 emit updateGUI(6, System::semaphores[6]->getContador());
                             }if(!System::semaphores[8]->getContador()){
                                 System::semaphores[8]->V();
+                                System::logs.push_back("T6.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore9.V()");
+                                emit updateGUI();
                                 emit updateGUI(8, System::semaphores[8]->getContador());
                             }if(!System::semaphores[5]->getContador()){
                                 System::semaphores[5]->V();
+                                System::logs.push_back("T6.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore6.V()");
+                                emit updateGUI();
                                 emit updateGUI(5, System::semaphores[5]->getContador());
                             }x-=10;
                         }else if(x == 140){
                             if(System::semaphores[7]->getContador()){
                                 System::semaphores[7]->P();
+                                System::logs.push_back("T6.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore8.P()");
+                                emit updateGUI();
                                 emit updateGUI(7, System::semaphores[7]->getContador());
                                 x-=10;
                             }
@@ -411,47 +524,67 @@ void Trem::run(){
                         if(y == 210){
                             if(!System::semaphores[6]->getContador()) {
                                 System::semaphores[6]->V();
+                                System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore7.V()");
+                                emit updateGUI();
                                 emit updateGUI(6, System::semaphores[6]->getContador());
                             }
                             if(!System::semaphores[8]->getContador()) {
                                 System::semaphores[8]->V();
+                                System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore9.V()");
+                                emit updateGUI();
                                 emit updateGUI(8, System::semaphores[8]->getContador());
                             }
                             if(!System::semaphores[5]->getContador()) {
                                 System::semaphores[5]->V();
+                                System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore6.V()");
+                                emit updateGUI();
                                 emit updateGUI(5, System::semaphores[5]->getContador());
                             }
                             y-=10;
                         }else if(y == 150){
                             if(System::semaphores[4]->getContador()){
                                 System::semaphores[4]->P();
+                                System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore5.P()");
+                                emit updateGUI();
                                 emit updateGUI(4, System::semaphores[4]->getContador());
                                 if(System::semaphores[1]->getContador()){
                                     System::semaphores[1]->P();
+                                    System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore2.P()");
+                                    emit updateGUI();
                                     emit updateGUI(1, System::semaphores[1]->getContador());
                                     if(System::semaphores[3]->getContador()){
                                         System::semaphores[3]->P();
+                                        System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore4.P()");
+                                        emit updateGUI();
                                         emit updateGUI(3, System::semaphores[3]->getContador());
                                         y-=10;
                                     }
                                 }
                                 else if(!System::semaphores[1]->getContador() && System::semaphores[3]->getContador()){
                                     System::semaphores[3]->P();
+                                    System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore4.P()");
+                                    emit updateGUI();
                                     emit updateGUI(3, System::semaphores[3]->getContador());
                                     y-=10;
                                 }
                             }else if(!System::semaphores[4]->getContador()){
                                 if(System::semaphores[1]->getContador()){
                                     System::semaphores[1]->P();
+                                    System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore2.P()");
+                                    emit updateGUI();
                                     emit updateGUI(1, System::semaphores[1]->getContador());
                                     if(System::semaphores[3]->getContador()){
                                         System::semaphores[3]->P();
+                                        System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore4.P()");
+                                        emit updateGUI();
                                         emit updateGUI(3, System::semaphores[3]->getContador());
                                         y-=10;
                                     }
                                 }
                                 else if(!System::semaphores[1]->getContador() && System::semaphores[3]->getContador()){
                                     System::semaphores[3]->P();
+                                    System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore4.P()");
+                                    emit updateGUI();
                                     emit updateGUI(3, System::semaphores[3]->getContador());
                                     y-=10;
                                 }
@@ -463,47 +596,67 @@ void Trem::run(){
                         if(y == 150) {
                             if(!System::semaphores[3]->getContador()) {
                                 System::semaphores[3]->V();
+                                System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore4.V()");
+                                emit updateGUI();
                                 emit updateGUI(3, System::semaphores[3]->getContador());
                             }
                             if(!System::semaphores[1]->getContador()) {
                                 System::semaphores[1]->V();
+                                System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore2.V()");
+                                emit updateGUI();
                                 emit updateGUI(1, System::semaphores[1]->getContador());
                             }
                             if(!System::semaphores[4]->getContador()) {
                                 System::semaphores[4]->V();
+                                System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore5.V()");
+                                emit updateGUI();
                                 emit updateGUI(4, System::semaphores[4]->getContador());
                             }
                             y+=10;
                         }else if(y == 210){
                             if(System::semaphores[5]->getContador()){
                                 System::semaphores[5]->P();
+                                System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore6.P()");
+                                emit updateGUI();
                                 emit updateGUI(5, System::semaphores[5]->getContador());
                                 if(System::semaphores[8]->getContador()){
                                     System::semaphores[8]->P();
+                                    System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore9.P()");
+                                    emit updateGUI();
                                     emit updateGUI(8, System::semaphores[8]->getContador());
                                     if(System::semaphores[6]->getContador()){
                                         System::semaphores[6]->P();
+                                        System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore7.P()");
+                                        emit updateGUI();
                                         emit updateGUI(6, System::semaphores[6]->getContador());
                                         y+=10;
                                     }
                                 }
                                 else if(!System::semaphores[8]->getContador() && System::semaphores[6]->getContador()){
                                     System::semaphores[6]->P();
+                                    System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore7.P()");
+                                    emit updateGUI();
                                     emit updateGUI(6, System::semaphores[6]->getContador());
                                     y+=10;
                                 }
                             }else if(!System::semaphores[5]->getContador()){
                                 if(System::semaphores[8]->getContador()){
                                     System::semaphores[8]->P();
+                                    System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore9.P()");
+                                    emit updateGUI();
                                     emit updateGUI(8, System::semaphores[8]->getContador());
                                     if(System::semaphores[6]->getContador()){
                                         System::semaphores[6]->P();
+                                        System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore7.P()");
+                                        emit updateGUI();
                                         emit updateGUI(6, System::semaphores[6]->getContador());
                                         y+=10;
                                     }
                                 }
                                 else if(!System::semaphores[8]->getContador() && System::semaphores[6]->getContador()){
                                     System::semaphores[6]->P();
+                                    System::logs.push_back("T7.Pos("+std::to_string(x)+","+std::to_string(y)+").semaphore7.P()");
+                                    emit updateGUI();
                                     emit updateGUI(6, System::semaphores[6]->getContador());
                                     y+=10;
                                 }
@@ -526,8 +679,8 @@ void Trem::run(){
             totalTime += currLap;
             lastLap = currLap;
             currLap = 0;
-            emit updateGUI(id, totalTime / laps, sqrt( pow((totalTime / laps) - lastLap,2) ), lastLap);
         }
+        emit updateGUI(id, totalTime / laps, sqrt( pow((totalTime / laps) - lastLap,2) ), lastLap, currLap);
     }
 }
 
