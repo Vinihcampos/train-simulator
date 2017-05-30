@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include <vector>
 #include <thread>
+#include <unistd.h>     //close
 
 using namespace std;
 

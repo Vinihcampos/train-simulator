@@ -50,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 MainWindow::~MainWindow()
 {
+    ::close(System::socket_id);
     delete ui;
     System::clear();
 }

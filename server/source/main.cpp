@@ -42,5 +42,6 @@ int main(int argc, char *argv[])
     std::thread thread_connection(server_connection_thread, ref(w));
     thread_connection.detach();
 
+
     return a.exec();
 }
