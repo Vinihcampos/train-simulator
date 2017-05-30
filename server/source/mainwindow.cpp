@@ -97,7 +97,10 @@ void MainWindow::interpret_client(char * message) {
             trains[ti-1]->setEnable(false);
         }
     } else if (op == "SPEED") {
-
+        std::string id;
+        int vel;
+        ss >> id >> vel;
+        trains[stoi(id)]->setVelocidade(vel);
     }
 
 }

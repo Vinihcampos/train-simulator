@@ -266,10 +266,7 @@ void speed_train_menu(char * name) {
 	mvwprintw(windows[3], 0, 0, name);
 	wrefresh(windows[3]);
 
-	client_message = strcat(strcat("SPEED ", velocity_pot.c_str()), name);
-	if(send(socket_id, client_message, strlen(client_message), 0) == -1) {
-		write_user_message("An error occurred.");
-	}
+
 }
 //-----------------------------------
 // Train speed panel
@@ -277,10 +274,24 @@ void speed_train_menu(char * name) {
 //-- Commands --//
 void speed_window_confirm(int);
 
-void speed_window_confirm(int i) {
+void speed_window_confirm(int k) {
 	hide_panel(panels[3]);
 	wrefresh(windows[3]);
 	top_panel(panels[2]);
+
+	ITEM * c = current_item(menus[2]);
+	int i = stoi(std::string(item_name(c))) - 1;
+	
+	std::string curvelpot = velocity_pot;
+
+	//client_message = strcat(strcat("SPEED ", velocity_pot.c_str()), name);
+	std::string out = "SPEED " + std::to_string(i) + " " + curvelpot;
+	if(send(socket_id, out.c_str(), out.size(), 0) == -1) {
+		write_user_message("An error occurred.");
+	} else {
+		std::strcpy(train_vel_desc[i], curvelpot.c_str());
+		set_menu_item(menus[2], windows[2], i, train_choices[i], train_vel_desc[i], reinterpret_cast<void *>(speed_train_menu));
+	}
 }
 
 /* Potentiometer thread
