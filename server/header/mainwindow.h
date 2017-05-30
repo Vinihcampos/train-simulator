@@ -4,6 +4,7 @@
 #include "trem.h"
 #include <QMainWindow>
 #include <vector>
+#include <thread>
 
 using namespace std;
 
@@ -18,6 +19,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+    void interpret_client(char * message);
 
 public slots:
     void updateInterface(int,int,int);
@@ -29,6 +31,7 @@ private:
     Ui::MainWindow *ui;
     vector<Trem*> trains;
     vector<Semaforo*> semaphores;
+
 };
 
 #endif // MAINWINDOW_H

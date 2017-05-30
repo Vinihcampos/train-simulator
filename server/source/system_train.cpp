@@ -3,6 +3,10 @@
 
 std::vector<std::string> System::logs;
 std::vector<Semaforo*> System::semaphores;
+struct sockaddr_in System::address;
+int System::socket_id;
+struct sockaddr_in System::client_address;
+int System::client_id;
 
 void System::clear(){
     System::logs.clear();

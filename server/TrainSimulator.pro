@@ -17,7 +17,7 @@ SOURCES += \
     source/mainwindow.cpp \
     source/semaforo.cpp \
     source/system_train.cpp \
-    source/trem.cpp
+    source/trem.cpp \
 
 HEADERS  += \
     header/mainwindow.h \
@@ -29,4 +29,5 @@ FORMS    += \
     forms/mainwindow.ui
 
 CONFIG  += c++11
+QMAKE_CXXFLAGS += -std=c++11 -pthread
 LIBS += -pthread

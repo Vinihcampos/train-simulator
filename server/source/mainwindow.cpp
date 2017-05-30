@@ -43,12 +43,18 @@ MainWindow::MainWindow(QWidget *parent) :
         // Train start
         trains[i]->start();
     }
+
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
     System::clear();
+}
+
+void MainWindow::interpret_client(char * message) {
+
+
 }
 
 void MainWindow::updateInterface(int id, int x, int y)
