@@ -135,7 +135,7 @@ void turn_on_all(char * name) {
 		return;
 	}
 	
-	client_message = "TON";
+	client_message = "ON A";
 	if(send(socket_id, client_message, strlen(client_message), 0) == -1) {
 		write_user_message("An error occurred.");
 	}
@@ -147,7 +147,7 @@ void turn_off_all(char * name) {
 		return;
 	}
 
-	client_message = "TOFF";
+	client_message = "OFF A";
 	if(send(socket_id, client_message, strlen(client_message), 0) == -1) {
 		write_user_message("An error occurred.");
 	}
