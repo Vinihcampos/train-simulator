@@ -228,10 +228,25 @@ void exit_client(char * name) {
 // ---------------------------------
 //--- Itens actions ---//
 void turn_train_menu(char * name) {
+	int i = stoi(std::string(name)) - 1;
 	ITEM * c = current_item(menus[1]);
-	client_message = strcat(strcat((char *)item_description(c), " "), name);
-	if(send(socket_id, client_message, strlen(client_message), 0) == -1) {
+	char * itemdesc = (char *)item_description(c);
+	std::string s {itemdesc};
+	std::string out;
+	if (s == "OFF") {
+		out = "ON";
+		std::strcpy(train_enable_desc[i], out.c_str());
+		out = "ON " + std::string(name);
+	} else {
+		out = "OFF";
+		std::strcpy(train_enable_desc[i], out.c_str());
+		out = "OFF " + std::string(name);
+	}
+
+	if(send(socket_id,(char *) (out.c_str()), out.size(), 0) == -1) {
 		write_user_message("An error occurred.");
+	} else {
+		set_menu_item(menus[1], windows[1], i, train_choices[i], train_enable_desc[i], reinterpret_cast<void *>(turn_train_menu));
 	}
 }
 

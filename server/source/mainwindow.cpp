@@ -33,10 +33,6 @@ MainWindow::MainWindow(QWidget *parent) :
     trains[1]->setVelocidade(60);
     trains[0]->setVelocidade(70);
 
-    trains[0]->setEnable(false);
-    trains[1]->setEnable(false);
-
-
     for(unsigned int i = 0; i < trains.size(); ++i){
         // Update lap informations
         connect(trains[i],SIGNAL(updateGUI(int,double,double,double,double)),SLOT(updateInterface(int,double,double,double,double)));
@@ -78,6 +74,30 @@ void MainWindow::interpret_client(char * message) {
         }
         tosend += "\0";
         send(System::client_id,(char *) tosend.c_str(), strlen(tosend.c_str()),0);
+    } else if (op == "ON") {
+        std::string t;
+        ss >> t;
+        // Turn off all
+        if (t == "A") {
+            for (auto t : trains)
+                t->setEnable(true);
+        } else {
+            int ti = stoi(t);
+            trains[ti-1]->setEnable(true);
+        }
+    } else if (op == "OFF") {
+        std::string t;
+        ss >> t;
+        // Turn off all
+        if (t == "A") {
+            for (auto t : trains)
+                t->setEnable(false);
+        } else {
+            int ti = stoi(t);
+            trains[ti-1]->setEnable(false);
+        }
+    } else if (op == "SPEED") {
+
     }
 
 }
