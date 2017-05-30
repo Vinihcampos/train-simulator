@@ -35,6 +35,15 @@ void Trem::setEnable(bool enable)
     this->enable = enable;
 }
 
+bool Trem::getEnable() {
+    return this->enable;
+}
+
+int Trem::getVelocidade() {
+    return this->velocidade;
+}
+
+
 void Trem::start()
 {
     threadTrem = std::thread(&Trem::run,this);

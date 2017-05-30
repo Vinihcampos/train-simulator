@@ -4,6 +4,7 @@
 #include "header/system_train.h"
 #include <iostream>
 #include <vector>
+#include <sstream>
 
 QStandardItemModel * model;
 
@@ -24,12 +25,17 @@ MainWindow::MainWindow(QWidget *parent) :
     trains.push_back(new Trem(6,220,330));
     trains.push_back(new Trem(7,220,180));
 
+    trains[6]->setVelocidade(20);
     trains[5]->setVelocidade(20);
     trains[4]->setVelocidade(30);
     trains[3]->setVelocidade(40);
     trains[2]->setVelocidade(50);
     trains[1]->setVelocidade(60);
     trains[0]->setVelocidade(70);
+
+    trains[0]->setEnable(false);
+    trains[1]->setEnable(false);
+
 
     for(unsigned int i = 0; i < trains.size(); ++i){
         // Update lap informations
@@ -53,7 +59,26 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::interpret_client(char * message) {
-
+    std::string s {message};
+    std::stringstream ss {s};
+    std::string op;
+    ss >> op;
+    if (op == "INFO") {
+        std::string tosend;
+        std::string w;
+        ss >> w;
+        if (w == "E") {
+            for (auto t : trains)
+                tosend += t->getEnable() ? "ON " : "OFF ";
+            std::cout << "Sending informations about enabled: " << tosend << std::endl;
+        } else if (w == "V") {
+            for (auto t : trains)
+                tosend += std::to_string(t->getVelocidade()) + " ";
+            std::cout << "Sending informations about velocity: " << tosend << std::endl;
+        }
+        tosend += "\0";
+        send(System::client_id,(char *) tosend.c_str(), strlen(tosend.c_str()),0);
+    }
 
 }
 

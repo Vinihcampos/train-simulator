@@ -3,6 +3,7 @@
 #include <menu.h>
 #include <mutex>
 #include <cstdlib>
+#include <sstream>
 #include <unistd.h>
 #include <thread>
 #include <cstring>
@@ -39,6 +40,9 @@ char * train_choices[] = {
 	"Exit"
 };
 
+char train_enable_desc[7][1024];
+char train_vel_desc[7][1024];
+
 // Globals
 PANEL * panels[4];
 MENU * menus[3];
@@ -54,6 +58,7 @@ char * messages_user = default_message_user;
 char * client_message = "";
 
 void write_user_message(char *);
+void set_menu_item(MENU * m, WINDOW * winmenu, int nitem, char * name, char * description, void * userptr);
 
 int n_general_choices = ARRAY_SIZE(general_choices);
 int n_train_choices = ARRAY_SIZE(train_choices);
@@ -63,6 +68,18 @@ void (*gen_funcs[3])(int);					// Functions for general menu
 void (*train_mturn_funcs[3])(int);			// Functions for turn train menu
 void (*train_mspeed_funcs[3])(int);		// Functions for train speed menu
 void (*train_speed_funcs[3])(int);			// Function for train speed window
+//-----------------------------------
+// Train turn panel
+// ---------------------------------
+//--- Itens actions ---//
+void turn_train_menu(char * name);
+void exit_train_panel(char * name);
+
+//-----------------------------------
+// Train menu speed panel
+// ---------------------------------
+//--- Itens actions ---//
+void speed_train_menu(char * name);
 
 /*------------- Functions for each panel ----------------*/
 // General panel
@@ -118,15 +135,19 @@ void connection_management(char * name) {
 	}
 
 	if (before != connected) {
-		ITEM ** items = menu_items(menus[0]);
-		unpost_menu(menus[0]);
-		free_item(items[0]);
-		items[0] = new_item(general_choices[0], general_choices[0]);
-		set_item_userptr(items[0], reinterpret_cast<void *>(connection_management));
-		set_menu_items(menus[0], items);
-		post_menu(menus[0]);
-		wrefresh(windows[0]);
+		set_menu_item(menus[0],windows[0],0,general_choices[0],general_choices[0],reinterpret_cast<void *>(connection_management));
 	}
+}
+
+void set_menu_item(MENU * m, WINDOW * winmenu, int nitem, char * name, char * description, void * userptr) {
+		ITEM ** items = menu_items(m);
+		unpost_menu(m);
+		free_item(items[nitem]);
+		items[nitem] = new_item(name, description);
+		set_item_userptr(items[nitem], reinterpret_cast<void *>(userptr));
+		set_menu_items(m, items);
+		post_menu(m);
+		wrefresh(winmenu);
 }
 
 void turn_on_all(char * name) {
@@ -159,6 +180,20 @@ void turn(char * name) {
 		return;
 	}
 
+	client_message = "INFO E";
+	if(send(socket_id, client_message, strlen(client_message), 0) == -1) {
+		write_user_message("An error occurred.");
+	}
+	char enableinfo[1024];
+	int readbytes = recv(socket_id, enableinfo, 1024, 0);
+	std::string enableinfos {enableinfo};
+	std::stringstream ss {enableinfos};
+	std::string s;
+	for (int i = 0; i < 7; ++i) {
+		ss >> s;
+		std::strcpy(train_enable_desc[i], s.c_str());
+		set_menu_item(menus[1], windows[1], i, train_choices[i], train_enable_desc[i], reinterpret_cast<void *>(turn_train_menu));
+	}
 	top_panel(panels[1]);
 }
 
@@ -167,7 +202,20 @@ void set_speed(char * name) {
 		write_user_message("You are not connected to the server.");
 		return;
 	}
-
+	client_message = "INFO V";
+	if(send(socket_id, client_message, strlen(client_message), 0) == -1) {
+		write_user_message("An error occurred.");
+	}
+	char enableinfo[1024];
+	int readbytes = recv(socket_id, enableinfo, 1024, 0);
+	std::string enableinfos {enableinfo};
+	std::stringstream ss {enableinfos};
+	std::string s;
+	for (int i = 0; i < 7; ++i) {
+		ss >> s;
+		std::strcpy(train_vel_desc[i], s.c_str());
+		set_menu_item(menus[2], windows[2], i, train_choices[i], train_vel_desc[i], reinterpret_cast<void *>(speed_train_menu));
+	}
 	top_panel(panels[2]);
 }
 
@@ -179,9 +227,6 @@ void exit_client(char * name) {
 // Train turn panel
 // ---------------------------------
 //--- Itens actions ---//
-void turn_train_menu(char * name);
-void exit_train_panel(char * name);
-
 void turn_train_menu(char * name) {
 	ITEM * c = current_item(menus[1]);
 	client_message = strcat(strcat((char *)item_description(c), " "), name);

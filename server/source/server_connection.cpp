@@ -27,7 +27,7 @@ void server_connection_thread(MainWindow & window) {
         char message[1024];
         int bytesread;
         // While loop for messages
-        while (!bytesread) {
+        while (true) {
             bytesread = recv(System::client_id, message, 1024, 0);
 
             if (bytesread == -1) {
@@ -39,6 +39,7 @@ void server_connection_thread(MainWindow & window) {
             }
             message[bytesread] = '\0';
             window.interpret_client(message);
+			std::cout << message << std::endl;
         }
 
     }

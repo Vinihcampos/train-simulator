@@ -18,6 +18,8 @@ public:
     void run();
     void setVelocidade(int);
     void setEnable(bool);
+    bool getEnable();
+    int getVelocidade();
 
 signals:
     void updateGUI(int,int,int);
@@ -30,8 +32,8 @@ private:
    int id;
    int x;
    int y;
-   int velocidade;
-   bool enable;
+   int velocidade = 0;
+   bool enable = false;
    int laps;
    double currLap;
    double totalTime;
