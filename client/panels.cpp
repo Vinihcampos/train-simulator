@@ -8,8 +8,10 @@
 #include <cstring>
 #include <map>
 #include <iostream>
+#include "connection.cpp"
 
 #define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))
+#define SERVER_IP "127.0.0.1"
 
 // Commands constants
 const int UP_COMMAND = 0; 
@@ -46,6 +48,12 @@ int command = 0;
 std::map<PANEL *, int> panels_id;
 std::string velocity_pot = "200";
 std::mutex mtx;
+int socket_id;
+char * default_message_user = "";
+char * messages_user = default_message_user;
+char * client_message = "";
+
+void write_user_message(char *);
 
 int n_general_choices = ARRAY_SIZE(general_choices);
 int n_train_choices = ARRAY_SIZE(train_choices);
@@ -91,9 +99,20 @@ void connection_management(char * name) {
 	bool before = connected;
 
 	if (!connected) {
-		connected = true;
-		general_choices[0] = "Disconnect";
+		if ((socket_id = connect_client(SERVER_IP)) > 0) {
+			connected = true;
+			general_choices[0] = "Disconnect";
+		} else {
+			if (socket_id == -1) 
+				messages_user = "Socket error.";
+			else 
+				messages_user = "Connection error.";
+			write_user_message(messages_user);
+			return;
+		} 
+			
 	} else {
+		close(socket_id);
 		connected = false;
 		general_choices[0] = "Connect";
 	}
@@ -111,18 +130,44 @@ void connection_management(char * name) {
 }
 
 void turn_on_all(char * name) {
-
+	if (!connected) {
+		write_user_message("You are not connected to the server.");
+		return;
+	}
+	
+	client_message = "TON";
+	if(send(socket_id, client_message, strlen(client_message), 0) == -1) {
+		write_user_message("An error occurred.");
+	}
 }
 
 void turn_off_all(char * name) {
+	if (!connected) {
+		write_user_message("You are not connected to the server.");
+		return;
+	}
 
+	client_message = "TOFF";
+	if(send(socket_id, client_message, strlen(client_message), 0) == -1) {
+		write_user_message("An error occurred.");
+	}
 }
 
 void turn(char * name) {
+	if (!connected) {
+		write_user_message("You are not connected to the server.");
+		return;
+	}
+
 	top_panel(panels[1]);
 }
 
 void set_speed(char * name) {
+	if (!connected) {
+		write_user_message("You are not connected to the server.");
+		return;
+	}
+
 	top_panel(panels[2]);
 }
 
@@ -138,7 +183,11 @@ void turn_train_menu(char * name);
 void exit_train_panel(char * name);
 
 void turn_train_menu(char * name) {
-
+	ITEM * c = current_item(menus[1]);
+	client_message = strcat(strcat((char *)item_description(c), " "), name);
+	if(send(socket_id, client_message, strlen(client_message), 0) == -1) {
+		write_user_message("An error occurred.");
+	}
 }
 
 void exit_train_panel(char * name) {
@@ -156,6 +205,11 @@ void speed_train_menu(char * name) {
 	show_panel(panels[3]);
 	mvwprintw(windows[3], 0, 0, name);
 	wrefresh(windows[3]);
+
+	client_message = strcat(strcat("SPEED ", velocity_pot.c_str()), name);
+	if(send(socket_id, client_message, strlen(client_message), 0) == -1) {
+		write_user_message("An error occurred.");
+	}
 }
 //-----------------------------------
 // Train speed panel
@@ -182,6 +236,14 @@ void potentiometer_update() {
 	mtx.unlock();
 }
 
+/* Write message at the bottom.
+------------------------------------------------*/
+void write_user_message(char * message) {
+	move(LINES-2,0);
+	clrtoeol();
+	mvprintw(LINES-2, 0, message);
+}
+
 /* Main method.
  -----------------------------------------------*/
 int main(void) {
@@ -205,7 +267,7 @@ int main(void) {
 	set_item_userptr(general_items[4], reinterpret_cast<void *>(set_speed));
 	set_item_userptr(general_items[5], reinterpret_cast<void *>(exit_client));
 	menus[0] = new_menu((ITEM * *) general_items);
-	windows[0] = newwin(30,50,0,0);
+	windows[0] = newwin(20,50,0,0);
 	keypad(windows[0], TRUE);
 	set_menu_win(menus[0], windows[0]);
 	set_menu_sub(menus[0], derwin(windows[0], 10, 45, 3, 2));
@@ -234,8 +296,8 @@ int main(void) {
 	train_speed_items[n_train_choices] = (ITEM *) NULL;
 	menus[1] = new_menu((ITEM * *) train_turn_items);
 	menus[2] = new_menu((ITEM * *) train_speed_items);
-	windows[1] = newwin(30,50,0,0);
-	windows[2] = newwin(30,50,0,0);
+	windows[1] = newwin(20,50,0,0);
+	windows[2] = newwin(20,50,0,0);
 	keypad(windows[1], TRUE);
 	keypad(windows[2], TRUE);
 	set_menu_win(menus[1], windows[1]);
@@ -293,11 +355,13 @@ int main(void) {
 			case KEY_DOWN: {
 					if (funcs[DOWN_COMMAND] != nullptr)
 						funcs[DOWN_COMMAND](panels_id[top]);
+					write_user_message(default_message_user);
 				break;
 			}
 			case KEY_UP: {
 					if (funcs[UP_COMMAND] != nullptr)
 						funcs[UP_COMMAND](panels_id[top]);
+					write_user_message(default_message_user);
 				break;
 		    }
 			case 10: {
@@ -309,7 +373,7 @@ int main(void) {
 		if (command == -1) break;
 
 		top = panel_below((PANEL *)0);
-
+		
 		refresh();
 		wrefresh(panel_window(top));
 		update_panels();
@@ -319,3 +383,4 @@ int main(void) {
 	endwin();
 	return 0;
 }
+
