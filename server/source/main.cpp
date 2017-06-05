@@ -5,7 +5,7 @@
 #include "server_connection.cpp"
 
 #define PORTNUM 4325
-#define SERVER_IP "127.0.0.1"
+#define SERVER_IP "192.168.7.1"
 
 int main(int argc, char *argv[])
 {

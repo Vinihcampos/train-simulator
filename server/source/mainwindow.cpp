@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     trains[3]->setVelocidade(40);
     trains[2]->setVelocidade(50);
     trains[1]->setVelocidade(60);
-    trains[0]->setVelocidade(70);
+    trains[0]->setVelocidade(1000);
 
     for(unsigned int i = 0; i < trains.size(); ++i){
         // Update lap informations

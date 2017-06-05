@@ -10,6 +10,7 @@
 #include <map>
 #include <iostream>
 #include "connection.cpp"
+#include "bbb_gpio.cpp"
 
 #define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))
 #define SERVER_IP "127.0.0.1"
@@ -56,6 +57,7 @@ int socket_id;
 char * default_message_user = "";
 char * messages_user = default_message_user;
 char * client_message = "";
+std::string server_ip = "127.0.0.1";
 
 void write_user_message(char *);
 void set_menu_item(MENU * m, WINDOW * winmenu, int nitem, char * name, char * description, void * userptr);
@@ -116,7 +118,7 @@ void connection_management(char * name) {
 	bool before = connected;
 
 	if (!connected) {
-		if ((socket_id = connect_client(SERVER_IP)) > 0) {
+		if ((socket_id = connect_client((char *)server_ip.c_str())) > 0) {
 			connected = true;
 			general_choices[0] = "Disconnect";
 		} else {
@@ -299,7 +301,7 @@ void speed_window_confirm(int k) {
 void potentiometer_update() {
 	mtx.lock();
 	while (panel_below((PANEL *)0) == panels[3]) {
-		velocity_pot = "300"; // getpotentiometervalue();
+		velocity_pot = std::to_string(readAnalog(5)); // getpotentiometervalue();
 		mvwprintw(windows[3], 1, 2, velocity_pot.c_str());
 		wrefresh(windows[3]);
 		usleep(5000);
@@ -317,7 +319,15 @@ void write_user_message(char * message) {
 
 /* Main method.
  -----------------------------------------------*/
-int main(void) {
+int main(int nargs, char * args[]) {
+
+	if (nargs < 2) {
+		std::cout << "Error: You must provide an IP address.\n";
+		return 0;
+	}
+
+	server_ip = std::string(args[1]);
+
 	// Init ncurses
 	initscr();
 	start_color();
@@ -420,8 +430,38 @@ int main(void) {
 			tupdatepot.detach();
 		}
 
-		command = wgetch(panel_window(top));
 		void (**funcs)(int) = reinterpret_cast<void (**)(int)>(const_cast<void *>(panel_userptr(top)));
+
+		// Keyboard press
+		//command = wgetch(panel_window(top));
+
+		// Beaglebone press
+		bool button_up = false;
+		bool button_down = false;
+		bool button_choose = false;
+
+		try {
+			bbb_button("P9_30", button_up);
+			bbb_button("P9_27", button_down);
+			bbb_button("P9_23", button_choose);
+
+			if (button_up) {
+					if (funcs[DOWN_COMMAND] != nullptr)
+						funcs[DOWN_COMMAND](panels_id[top]);
+					write_user_message(default_message_user);
+			} else if(button_down) {
+					if (funcs[UP_COMMAND] != nullptr)
+						funcs[UP_COMMAND](panels_id[top]);
+					write_user_message(default_message_user);
+			} else if(button_choose) {
+					if (funcs[CHOOSE_COMMAND] != nullptr)
+						funcs[CHOOSE_COMMAND](panels_id[top]);
+			}
+		} catch (std::exception & e) {
+			write_user_message("Error at reading input from BeagleBone.");
+		}
+
+		/*
 		switch(command) {	
 			case KEY_DOWN: {
 					if (funcs[DOWN_COMMAND] != nullptr)
@@ -440,8 +480,8 @@ int main(void) {
 						funcs[CHOOSE_COMMAND](panels_id[top]);
 				break;		 
 			}
-		}
-		if (command == -1) break;
+		}*/
+		//if (command == -1) break;
 
 		top = panel_below((PANEL *)0);
 		
@@ -449,6 +489,8 @@ int main(void) {
 		wrefresh(panel_window(top));
 		update_panels();
 		doupdate();
+		
+		usleep(200000);
 	}
 
 	endwin();
