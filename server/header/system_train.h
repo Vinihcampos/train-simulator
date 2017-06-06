@@ -24,6 +24,7 @@ class System{
 		System();
 		~System();
         static void clear();
+        static const std::string currentDateTime();
 };
 
 #endif

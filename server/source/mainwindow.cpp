@@ -4,7 +4,9 @@
 #include "header/system_train.h"
 #include <iostream>
 #include <vector>
+#include <fstream>
 #include <sstream>
+#include <QFileInfo>
 
 QStandardItemModel * model;
 
@@ -227,7 +229,23 @@ void MainWindow::updateInterface(int id, double mean, double sd, double lastValu
 
 void MainWindow::updateInterface(){
     ui->listLog->clear();
-    for(int i = System::logs.size() - 1; i >= 0; --i){
-        ui->listLog->addItem(QString::fromStdString(System::logs[i]));
+    if(System::logs.size() >= 1000){
+        if(!log_file.compare("")) log_file = (QFileInfo(".").absolutePath()).toStdString() + "/server/logs/log_" + System::currentDateTime() + ".txt";
+        std::ofstream file(log_file, ios::out | ios::app);
+        if (file.is_open()) {
+            for(int i = 0; i < System::logs.size(); ++i){
+                file << System::logs[i] << std::endl;
+            }
+            file.close();
+            System::logs.clear();
+        }else{
+            std::cout << "FILE PROBLEM!!!\n";
+        }
+    }else{
+        std::cout << System::logs.size() << std::endl;
+        for(int i = System::logs.size() - 1; i >= 0; --i){
+            ui->listLog->addItem(QString::fromStdString(System::logs[i]));
+        }
     }
+
 }
