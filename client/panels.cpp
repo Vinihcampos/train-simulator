@@ -30,6 +30,15 @@ char * general_choices[] = {
 	"Exit"
 };
 
+char * general_choices_desc[] = {
+	"Connect/disconnect from server",
+	"Enable all trains",
+	"Disable all trains",
+	"Turn on/off a train by ID",
+	"Set speed of a train by ID",
+	" "
+};
+
 char * train_choices[] = {
 	"1",
 	"2",
@@ -139,7 +148,7 @@ void connection_management(char * name) {
 	}
 
 	if (before != connected) {
-		set_menu_item(menus[0],windows[0],0,general_choices[0],general_choices[0],reinterpret_cast<void *>(connection_management));
+		set_menu_item(menus[0],windows[0],0,general_choices[0],general_choices_desc[0],reinterpret_cast<void *>(connection_management));
 	}
 }
 
@@ -350,7 +359,7 @@ int main(int nargs, char * args[]) {
 	// General menu
 	ITEM * * general_items = (ITEM **) calloc(n_general_choices + 1, sizeof(ITEM *));
 	for (int i = 0; i < n_general_choices; ++i)
-		general_items[i] = new_item(general_choices[i], general_choices[i]);
+		general_items[i] = new_item(general_choices[i], general_choices_desc[i]);
 	general_items[n_general_choices] = (ITEM *) NULL;
 	set_item_userptr(general_items[0], reinterpret_cast<void *>(connection_management));
 	set_item_userptr(general_items[1], reinterpret_cast<void *>(turn_on_all));
@@ -359,10 +368,10 @@ int main(int nargs, char * args[]) {
 	set_item_userptr(general_items[4], reinterpret_cast<void *>(set_speed));
 	set_item_userptr(general_items[5], reinterpret_cast<void *>(exit_client));
 	menus[0] = new_menu((ITEM * *) general_items);
-	windows[0] = newwin(20,50,0,0);
+	windows[0] = newwin(20,60,0,0);
 	keypad(windows[0], TRUE);
 	set_menu_win(menus[0], windows[0]);
-	set_menu_sub(menus[0], derwin(windows[0], 10, 45, 3, 2));
+	set_menu_sub(menus[0], derwin(windows[0], 10, 55, 3, 2));
 	box(windows[0],0,0);
 	post_menu(menus[0]);
 	wrefresh(windows[0]);
@@ -388,14 +397,14 @@ int main(int nargs, char * args[]) {
 	train_speed_items[n_train_choices] = (ITEM *) NULL;
 	menus[1] = new_menu((ITEM * *) train_turn_items);
 	menus[2] = new_menu((ITEM * *) train_speed_items);
-	windows[1] = newwin(20,50,0,0);
-	windows[2] = newwin(20,50,0,0);
+	windows[1] = newwin(20,60,0,0);
+	windows[2] = newwin(20,60,0,0);
 	keypad(windows[1], TRUE);
 	keypad(windows[2], TRUE);
 	set_menu_win(menus[1], windows[1]);
 	set_menu_win(menus[2], windows[2]);
-	set_menu_sub(menus[1], derwin(windows[1], 10, 45, 3, 2));
-	set_menu_sub(menus[2], derwin(windows[2], 10, 45, 3, 2));
+	set_menu_sub(menus[1], derwin(windows[1], 10, 55, 3, 2));
+	set_menu_sub(menus[2], derwin(windows[2], 10, 55, 3, 2));
 	box(windows[1],0,0);
 	box(windows[2],0,0);
 	post_menu(menus[1]);
