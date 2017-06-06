@@ -6,6 +6,7 @@
 #include <vector>
 #include <thread>
 #include <unistd.h>     //close
+#include <string>
 
 using namespace std;
 
@@ -32,7 +33,7 @@ private:
     Ui::MainWindow *ui;
     vector<Trem*> trains;
     vector<Semaforo*> semaphores;
-
+    std::string log_file;
 };
 
 #endif // MAINWINDOW_H
