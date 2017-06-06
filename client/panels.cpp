@@ -51,7 +51,8 @@ WINDOW * windows[4];
 bool connected = false;
 int command = 0;
 std::map<PANEL *, int> panels_id;
-std::string velocity_pot = "200";
+std::string sleep_time_vel = "200";
+double velocity_pot = 10;
 std::mutex mtx;
 int socket_id;
 char * default_message_user = "";
@@ -284,9 +285,9 @@ void speed_window_confirm(int k) {
 	ITEM * c = current_item(menus[2]);
 	int i = stoi(std::string(item_name(c))) - 1;
 	
-	std::string curvelpot = velocity_pot;
+	std::string curvelpot = std::to_string((10.0/velocity_pot)*1000);
 
-	//client_message = strcat(strcat("SPEED ", velocity_pot.c_str()), name);
+	//client_message = strcat(strcat("SPEED ", sleep_time_vel.c_str()), name);
 	std::string out = "SPEED " + std::to_string(i) + " " + curvelpot;
 	if(send(socket_id, out.c_str(), out.size(), 0) == -1) {
 		write_user_message("An error occurred.");
@@ -301,8 +302,14 @@ void speed_window_confirm(int k) {
 void potentiometer_update() {
 	mtx.lock();
 	while (panel_below((PANEL *)0) == panels[3]) {
-		velocity_pot = std::to_string(readAnalog(5)); // getpotentiometervalue();
-		mvwprintw(windows[3], 1, 2, velocity_pot.c_str());
+		double pot_value = readAnalog(5) + 0.0;
+		pot_value = pot_value <= 20 ? 20 : pot_value >= 4000 ? 4000 : pot_value;
+		double oldMin = 4, oldMax = 4000;
+		double newMin = 10, newMax = 1000;
+		double new_value_pot = (((pot_value - oldMin)*(newMax-newMin)) / (oldMax-oldMin)) + newMin;
+		velocity_pot = new_value_pot;
+		sleep_time_vel = std::to_string(new_value_pot);
+		mvwprintw(windows[3], 1, 2, sleep_time_vel.c_str());
 		wrefresh(windows[3]);
 		usleep(5000);
 	}
@@ -454,6 +461,7 @@ int main(int nargs, char * args[]) {
 						funcs[UP_COMMAND](panels_id[top]);
 					write_user_message(default_message_user);
 			} else if(button_choose) {
+					command = 10;
 					if (funcs[CHOOSE_COMMAND] != nullptr)
 						funcs[CHOOSE_COMMAND](panels_id[top]);
 			}
@@ -481,7 +489,7 @@ int main(int nargs, char * args[]) {
 				break;		 
 			}
 		}*/
-		//if (command == -1) break;
+		if (command == -1) break;
 
 		top = panel_below((PANEL *)0);
 		
