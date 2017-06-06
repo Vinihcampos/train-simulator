@@ -33,7 +33,6 @@ private:
     Ui::MainWindow *ui;
     vector<Trem*> trains;
     vector<Semaforo*> semaphores;
-    std::string log_file;
 };
 
 #endif // MAINWINDOW_H

@@ -11,6 +11,7 @@
 #include <arpa/inet.h>  //inet_addr
 #include <sys/socket.h> //socket
 #include <unistd.h>     //close
+#include <mutex>
 
 class System{
 	
@@ -21,10 +22,15 @@ class System{
         static int client_id;
 		static std::vector<std::string> logs;
 		static std::vector<Semaforo*> semaphores;
+		static Semaforo * logS;
+        static std::mutex mtx;
 		System();
 		~System();
         static void clear();
         static const std::string currentDateTime();
+        static void updateLog(std::string msg);
+    	static std::string log_file;
+
 };
 
 #endif

@@ -19,6 +19,8 @@ MainWindow::MainWindow(QWidget *parent) :
         System::semaphores.push_back(new Semaforo(j,1,IPC_CREAT|0600));
     }
 
+    System::logS = new Semaforo(1245, 1, IPC_CREAT|0600);
+    System::log_file = (QFileInfo(".").absolutePath()).toStdString() + "/server/logs/log_" + System::currentDateTime() + ".txt";
     trains.push_back(new Trem(1,20,180));
     trains.push_back(new Trem(2,220,30));
     trains.push_back(new Trem(3,420,30));
@@ -229,23 +231,9 @@ void MainWindow::updateInterface(int id, double mean, double sd, double lastValu
 
 void MainWindow::updateInterface(){
     ui->listLog->clear();
-    if(System::logs.size() >= 1000){
-        if(!log_file.compare("")) log_file = (QFileInfo(".").absolutePath()).toStdString() + "/server/logs/log_" + System::currentDateTime() + ".txt";
-        std::ofstream file(log_file, ios::out | ios::app);
-        if (file.is_open()) {
-            for(int i = 0; i < System::logs.size(); ++i){
-                file << System::logs[i] << std::endl;
-            }
-            file.close();
-            System::logs.clear();
-        }else{
-            std::cout << "FILE PROBLEM!!!\n";
-        }
-    }else{
-        std::cout << System::logs.size() << std::endl;
-        for(int i = System::logs.size() - 1; i >= 0; --i){
-            ui->listLog->addItem(QString::fromStdString(System::logs[i]));
-        }
+    std::cout << System::logs.size() << std::endl;
+    for(int i = System::logs.size() - 1; i >= 0; --i){
+        ui->listLog->addItem(QString::fromStdString(System::logs[i]));
     }
 
 }
