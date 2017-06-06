@@ -18,6 +18,7 @@ Trem::Trem(int id, int x, int y)
     totalTime = 0;
     xStart = x;
     yStart = y;
+    var = 0;
 }
 
 Trem::~Trem()
@@ -682,14 +683,18 @@ void Trem::run(){
 
         this_thread::sleep_for(chrono::milliseconds(velocidade));
         
-        currLap += velocidade / 1000.0;
-        if(x == xStart && y == yStart){
-            ++laps;
-            totalTime += currLap;
-            lastLap = currLap;
-            currLap = 0;
+        if(this->enable){
+            currLap += velocidade / 1000.0;
+            if(x == xStart && y == yStart){
+                ++laps;
+                var =  laps < 2 ? 0 : var*(laps-2.0)/(laps-1.0) + (1.0/laps)*pow(currLap-(totalTime/(laps-1.0)),2);
+                totalTime += currLap;
+                lastLap = currLap;
+                currLap = 0;
+            }
+            emit updateGUI(id, laps < 1 ? 0 : totalTime / laps, sqrt(var), lastLap, currLap);
         }
-        emit updateGUI(id, totalTime / laps, sqrt( pow((totalTime / laps) - lastLap,2) ), lastLap, currLap);
+
     }
 }
 

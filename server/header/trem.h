@@ -39,6 +39,7 @@ private:
    double totalTime;
    double lastLap;
    int xStart,yStart;
+   double var;
 };
 
 #endif // TREM_H
