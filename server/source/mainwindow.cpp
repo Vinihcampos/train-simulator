@@ -29,13 +29,13 @@ MainWindow::MainWindow(QWidget *parent) :
     trains.push_back(new Trem(6,220,330));
     trains.push_back(new Trem(7,220,180));
 
-    trains[6]->setVelocidade(20);
+    /*trains[6]->setVelocidade(20);
     trains[5]->setVelocidade(20);
     trains[4]->setVelocidade(30);
     trains[3]->setVelocidade(40);
     trains[2]->setVelocidade(50);
     trains[1]->setVelocidade(60);
-    trains[0]->setVelocidade(1000);
+    trains[0]->setVelocidade(1000);*/
 
     for(unsigned int i = 0; i < trains.size(); ++i){
         // Update lap informations
