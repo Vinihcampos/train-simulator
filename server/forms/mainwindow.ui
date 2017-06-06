@@ -220,8 +220,8 @@ border: 3px dashed white;</string>
    <widget class="QLabel" name="labelTrain3">
     <property name="geometry">
      <rect>
-      <x>440</x>
-      <y>130</y>
+      <x>420</x>
+      <y>30</y>
       <width>20</width>
       <height>20</height>
      </rect>
@@ -249,7 +249,7 @@ color: white;</string>
    <widget class="QLabel" name="labelTrain5">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>420</x>
       <y>330</y>
       <width>20</width>
       <height>20</height>
@@ -278,7 +278,7 @@ color: white;</string>
    <widget class="QLabel" name="labelTrain6">
     <property name="geometry">
      <rect>
-      <x>140</x>
+      <x>220</x>
       <y>330</y>
       <width>20</width>
       <height>20</height>
@@ -307,8 +307,8 @@ color: white;</string>
    <widget class="QLabel" name="labelTrain1">
     <property name="geometry">
      <rect>
-      <x>120</x>
-      <y>210</y>
+      <x>20</x>
+      <y>180</y>
       <width>20</width>
       <height>20</height>
      </rect>
@@ -336,8 +336,8 @@ color: white;</string>
    <widget class="QLabel" name="labelTrain4">
     <property name="geometry">
      <rect>
-      <x>520</x>
-      <y>150</y>
+      <x>620</x>
+      <y>180</y>
       <width>20</width>
       <height>20</height>
      </rect>
@@ -366,7 +366,7 @@ color: white;</string>
     <property name="geometry">
      <rect>
       <x>220</x>
-      <y>150</y>
+      <y>180</y>
       <width>20</width>
       <height>20</height>
      </rect>
@@ -394,7 +394,7 @@ color: white;</string>
    <widget class="QLabel" name="labelTrain2">
     <property name="geometry">
      <rect>
-      <x>300</x>
+      <x>220</x>
       <y>30</y>
       <width>20</width>
       <height>20</height>
