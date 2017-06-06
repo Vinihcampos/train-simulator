@@ -52,13 +52,14 @@ bool connected = false;
 int command = 0;
 std::map<PANEL *, int> panels_id;
 std::string sleep_time_vel = "200";
-double velocity_pot = 10;
+int velocity_pot = 10;
 std::mutex mtx;
 int socket_id;
 char * default_message_user = "";
 char * messages_user = default_message_user;
 char * client_message = "";
 std::string server_ip = "127.0.0.1";
+std::string cur_speed_window_name;
 
 void write_user_message(char *);
 void set_menu_item(MENU * m, WINDOW * winmenu, int nitem, char * name, char * description, void * userptr);
@@ -264,12 +265,11 @@ void exit_train_panel(char * name) {
 void speed_train_menu(char * name);
 
 void speed_train_menu(char * name) {
+	cur_speed_window_name = std::string(name);
 	box(windows[3], 0, 0);
 	show_panel(panels[3]);
 	mvwprintw(windows[3], 0, 0, name);
 	wrefresh(windows[3]);
-
-
 }
 //-----------------------------------
 // Train speed panel
@@ -285,14 +285,15 @@ void speed_window_confirm(int k) {
 	ITEM * c = current_item(menus[2]);
 	int i = stoi(std::string(item_name(c))) - 1;
 	
-	std::string curvelpot = std::to_string((10.0/velocity_pot)*1000);
+	std::string curvelpot = std::to_string((int) ((10.0/velocity_pot)*1000));
 
 	//client_message = strcat(strcat("SPEED ", sleep_time_vel.c_str()), name);
 	std::string out = "SPEED " + std::to_string(i) + " " + curvelpot;
 	if(send(socket_id, out.c_str(), out.size(), 0) == -1) {
 		write_user_message("An error occurred.");
 	} else {
-		std::strcpy(train_vel_desc[i], curvelpot.c_str());
+		std::string velocity_pot_str = std::to_string(velocity_pot);
+		std::strcpy(train_vel_desc[i], velocity_pot_str.c_str());
 		set_menu_item(menus[2], windows[2], i, train_choices[i], train_vel_desc[i], reinterpret_cast<void *>(speed_train_menu));
 	}
 }
@@ -308,10 +309,13 @@ void potentiometer_update() {
 		double newMin = 10, newMax = 1000;
 		double new_value_pot = (((pot_value - oldMin)*(newMax-newMin)) / (oldMax-oldMin)) + newMin;
 		velocity_pot = new_value_pot;
-		sleep_time_vel = std::to_string(new_value_pot);
+		sleep_time_vel = std::to_string(velocity_pot);
+		werase(windows[3]);
+		box(windows[3], 0, 0);
+		mvwprintw(windows[3], 0, 0, cur_speed_window_name.c_str());
 		mvwprintw(windows[3], 1, 2, sleep_time_vel.c_str());
 		wrefresh(windows[3]);
-		usleep(5000);
+		usleep(100000);
 	}
 	mtx.unlock();
 }

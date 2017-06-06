@@ -70,7 +70,7 @@ void MainWindow::interpret_client(char * message) {
             std::cout << "Sending informations about enabled: " << tosend << std::endl;
         } else if (w == "V") {
             for (auto t : trains)
-                tosend += std::to_string(t->getVelocidade()) + " ";
+                tosend += std::to_string((int) (10.0/(t->getVelocidade()/1000.0))) + " ";
             std::cout << "Sending informations about velocity: " << tosend << std::endl;
         }
         tosend += "\0";
