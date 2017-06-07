@@ -10,8 +10,8 @@ Trem::Trem(int id, int x, int y)
     this->id = id;
     this->x = x;
     this->y = y;
-    velocidade = 10;
-    enable = true;
+    velocidade = 600;
+    enable = false;
     laps = 0;
     currLap = 0;
     lastLap = 0;
