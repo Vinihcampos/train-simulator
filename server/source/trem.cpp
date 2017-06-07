@@ -10,8 +10,8 @@ Trem::Trem(int id, int x, int y)
     this->id = id;
     this->x = x;
     this->y = y;
-    velocidade = 600;
-    enable = false;
+    velocidade = 10;
+    enable = true;
     laps = 0;
     currLap = 0;
     lastLap = 0;
@@ -913,7 +913,7 @@ void Trem::run(){
         
         if(this->enable){
             currLap += velocidade / 1000.0;
-            if(x == xStart && y == yStart){
+            if(x == xStart && y == yStart && currLap > velocidade / 1000.0){
                 ++laps;
                 var =  laps < 2 ? 0 : var*(laps-2.0)/(laps-1.0) + (1.0/laps)*pow(currLap-(totalTime/(laps-1.0)),2);
                 totalTime += currLap;
